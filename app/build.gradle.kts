@@ -62,6 +62,7 @@ dependencies {
     implementation(platform(libs.okhttp.bom))
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
+    implementation (libs.converter.gson)
 
     // Room Database
     implementation(libs.androidx.room.runtime)
