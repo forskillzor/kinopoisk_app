@@ -75,6 +75,9 @@ dependencies {
     // Material3 Components
     implementation(libs.material)
 
+    // Paging3
+    implementation(libs.androidx.paging.runtime.ktx)
+
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.activity.ktx)
