@@ -28,6 +28,9 @@ android {
             )
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -77,6 +80,9 @@ dependencies {
 
     // Paging3
     implementation(libs.androidx.paging.runtime.ktx)
+
+    // Glide
+    implementation (libs.glide)
 
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
