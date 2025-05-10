@@ -10,17 +10,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kinopoisk.MainViewModel
-import com.example.kinopoisk.MainViewModelFactory
 import com.example.kinopoisk.R
 import com.example.kinopoisk.data.Repository
 import com.example.kinopoisk.databinding.FragmentListPageBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ListPageFragment : Fragment() {
     private lateinit var adapter: ListPageAdapter
-    private val repository = Repository.newInstance()
-    private val factory = MainViewModelFactory(repository)
-    private val viewModel: MainViewModel by viewModels {factory}
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
