@@ -15,3 +15,5 @@ data class Movie(
 
 data class Genre(val genre: String)
 data class Country(val country: String)
+
+data class MovieResponse(val pagesCount: Int, val films: List<Movie>)

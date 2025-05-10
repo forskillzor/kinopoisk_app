@@ -2,6 +2,7 @@ package com.example.kinopoisk.data.api
 
 import com.example.kinopoisk.BuildConfig
 import com.example.kinopoisk.data.model.Movie
+import com.example.kinopoisk.data.model.MovieResponse
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -12,7 +13,7 @@ import retrofit2.http.Query
 
 interface KinopoiskApi {
     @GET("/api/v2.2/films/top?type=TOP_250_BEST_FILMS")
-    suspend fun topList(@Query("page") page: Int): List<Movie>
+    suspend fun topList(@Query("page") page: Int): MovieResponse
 
     companion object {
         const val BASE_URL = "https://kinopoiskapiunofficial.tech"
@@ -27,7 +28,8 @@ object RetrofitClient {
     private val okHttpClient = OkHttpClient.Builder()
         .addInterceptor { chain ->
             val request = chain.request().newBuilder()
-                .addHeader("X-API-KEY", BuildConfig.API_KEY)
+                .addHeader("x-api-key", BuildConfig.API_KEY)
+                .addHeader("Content-Type", "application/json")
                 .build()
             chain.proceed(request)
         }
@@ -38,7 +40,7 @@ object RetrofitClient {
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(KinopoiskApi.BASE_URL)
-        .client(OkHttpClient())
+        .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create(gson))
         .build()
 
