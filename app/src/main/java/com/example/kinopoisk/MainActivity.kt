@@ -8,12 +8,12 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.kinopoisk.data.Repository
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
 const val APPLICATION_TAG = "application_tag"
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    //    private val repository: Repository = Repository.newInstance()
-//    val viewModelFactory = MainViewModelFactory(repository)
     private lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

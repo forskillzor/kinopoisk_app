@@ -6,8 +6,13 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.kinopoisk.data.Repository
 import com.example.kinopoisk.data.model.Movie
+import dagger.hilt.android.lifecycle.HiltViewModel
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
-class MainViewModel(private val repository: Repository): ViewModel() {
-    val pagingData: Flow<PagingData<Movie>> = repository.topList().cachedIn(viewModelScope)
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val repository: Repository
+): ViewModel() {
+    val pagingData: Flow<PagingData<Movie>> = this.repository.topList().cachedIn(viewModelScope)
 }
