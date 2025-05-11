@@ -14,5 +14,5 @@ import kotlinx.coroutines.flow.Flow
 class MainViewModel @Inject constructor(
     private val repository: Repository
 ): ViewModel() {
-    val pagingData: Flow<PagingData<Movie>> = this.repository.topList().cachedIn(viewModelScope)
+    val pagingData: Flow<PagingData<Movie>> = this.repository.getTop250Paged().cachedIn(viewModelScope)
 }

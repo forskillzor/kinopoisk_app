@@ -1,7 +1,6 @@
 package com.example.kinopoisk.data.api
 
 import com.example.kinopoisk.BuildConfig
-import com.example.kinopoisk.data.model.Movie
 import com.example.kinopoisk.data.model.MovieResponse
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -13,7 +12,24 @@ import retrofit2.http.Query
 
 interface KinopoiskApi {
     @GET("/api/v2.2/films/top?type=TOP_250_BEST_FILMS")
-    suspend fun topList(@Query("page") page: Int): MovieResponse
+    suspend fun top250(@Query("page") page: Int): MovieResponse
+
+    @GET("/api/v2.2/films/collections/")
+    suspend fun premieres(@Query("type") type: String = "CLOSES_RELEASES"): MovieResponse
+
+    @GET("/api/v2.2/films/collections/")
+    suspend fun popular(@Query("type") type: String = "TOP_POPULAR_ALL"): MovieResponse
+
+    @GET("/api/v2.2/films/collections/")
+    suspend fun series(@Query("type") type: String = "POPULAR_SERIES"): MovieResponse
+
+    @GET("/api/v2.2/films/film/")
+    suspend fun dynamicGenresAndCountries(
+        @Query("countries") countries: List<Int> = listOf(1),
+        @Query("genres") genres: List<Int> = listOf(1)
+    ): MovieResponse
+
+
 
     companion object {
         const val BASE_URL = "https://kinopoiskapiunofficial.tech"
