@@ -9,7 +9,7 @@ class TopListPagingSource(
 ): PagingSource<Int, Movie>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val page = params.key?: 1
-        val response = api.topList(page)
+        val response = api.top250(page)
         return LoadResult.Page(
             data = response.films,
             prevKey = if(page == 1) null else page - 1,

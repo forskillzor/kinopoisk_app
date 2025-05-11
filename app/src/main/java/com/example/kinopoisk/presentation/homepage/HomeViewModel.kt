@@ -1,11 +1,14 @@
 package com.example.kinopoisk.presentation.homepage
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.kinopoisk.data.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
@@ -17,7 +20,11 @@ class HomeViewModel @Inject constructor(
     init {
         loadSections()
     }
-    fun loadSections() {
-
+    private fun loadSections() {
+        viewModelScope.launch {
+            repository.getPremieres().collect { list ->
+                Log.d("HomeViewModel", "$list")
+            }
+        }
     }
 }

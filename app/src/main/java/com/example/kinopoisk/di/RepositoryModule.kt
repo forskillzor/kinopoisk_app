@@ -1,8 +1,7 @@
 package com.example.kinopoisk.di
 
+import com.example.kinopoisk.data.NetworkRepository
 import com.example.kinopoisk.data.Repository
-import com.example.kinopoisk.data.api.KinopoiskApi
-import com.example.kinopoisk.data.api.RetrofitClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,12 +10,10 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
-
+object RepositoryModule {
     @Provides
     @Singleton
-    fun provideKinopoiskApi(): KinopoiskApi {
-        return RetrofitClient.api
+    fun provideRepository(networkRepository: NetworkRepository): Repository {
+        return networkRepository
     }
-
 }
