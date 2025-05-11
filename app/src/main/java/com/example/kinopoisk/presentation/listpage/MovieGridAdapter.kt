@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.kinopoisk.data.model.Movie
 import com.example.kinopoisk.databinding.ItemListpageBinding
 
-class ListPageAdapter(): PagingDataAdapter<Movie, ListPageAdapter.MovieViewHolder>(COMPARATOR) {
+class MovieGridAdapter(): PagingDataAdapter<Movie, MovieGridAdapter.MovieViewHolder>(COMPARATOR) {
 
     companion object{
         val COMPARATOR = object : DiffUtil.ItemCallback<Movie>() {
@@ -49,7 +49,8 @@ class ListPageAdapter(): PagingDataAdapter<Movie, ListPageAdapter.MovieViewHolde
     class MovieViewHolder(val binding: ItemListpageBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             binding.filmName.text = movie.nameRu
-            binding.rating.text = movie.rating
+            binding.ratingBadge.text = movie.rating
+            binding.genre.text = movie.genres[0].genre
 
             Glide.with(binding.poster)
                 .load(movie.posterUrlPreview)

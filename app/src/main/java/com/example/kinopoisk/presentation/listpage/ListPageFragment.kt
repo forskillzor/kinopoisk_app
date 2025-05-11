@@ -6,19 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.kinopoisk.MainViewModel
-import com.example.kinopoisk.R
-import com.example.kinopoisk.data.Repository
 import com.example.kinopoisk.databinding.FragmentListPageBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ListPageFragment : Fragment() {
-    private lateinit var adapter: ListPageAdapter
+    private lateinit var adapter: MovieGridAdapter
     private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,8 +30,8 @@ class ListPageFragment : Fragment() {
         val binding = FragmentListPageBinding.inflate(inflater, container, false)
 
         val recyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = ListPageAdapter()
+        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        adapter = MovieGridAdapter()
         recyclerView.adapter = adapter
 
         lifecycleScope.launch {
