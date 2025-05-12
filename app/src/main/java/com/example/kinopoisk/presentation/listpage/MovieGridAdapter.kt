@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kinopoisk.data.model.Movie
-import com.example.kinopoisk.databinding.ItemListpageBinding
+import com.example.kinopoisk.databinding.ItemMovieBinding
 
 class MovieGridAdapter(): PagingDataAdapter<Movie, MovieGridAdapter.MovieViewHolder>(COMPARATOR) {
 
@@ -33,7 +33,7 @@ class MovieGridAdapter(): PagingDataAdapter<Movie, MovieGridAdapter.MovieViewHol
         parent: ViewGroup,
         viewType: Int
     ): MovieViewHolder {
-        val binding = ItemListpageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return MovieViewHolder(binding)
     }
 
@@ -46,7 +46,7 @@ class MovieGridAdapter(): PagingDataAdapter<Movie, MovieGridAdapter.MovieViewHol
             holder.bind(item)
         }
     }
-    class MovieViewHolder(val binding: ItemListpageBinding): RecyclerView.ViewHolder(binding.root) {
+    class MovieViewHolder(val binding: ItemMovieBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             binding.filmName.text = movie.nameRu
             binding.ratingBadge.text = movie.rating

@@ -22,12 +22,12 @@ class NetworkRepository @Inject constructor(
 
     override fun getPremieres(): Flow<List<Movie>> = flow {
         val response = api.premieres()
-        emit(response.films)
+        emit(response.items)
     }
 
     override fun getPopular(): Flow<List<Movie>> = flow {
         val response = api.popular()
-        emit(response.films)
+        emit(response.items)
     }
 
     override fun getTop250(): Flow<List<Movie>> = flow {
@@ -37,7 +37,7 @@ class NetworkRepository @Inject constructor(
 
     override fun getSeries(): Flow<List<Movie>> = flow {
         val response = api.series()
-        emit(response.films)
+        emit(response.items)
     }
 
     override fun getDynamicGenreCountryList(): Flow<List<Movie>> = flow {
