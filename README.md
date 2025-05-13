@@ -88,10 +88,12 @@ Material 3, BottomSheetDialogFragment, RangeSlider, ChipGroup, ViewPager2
 🛠 Project Structure
 --------------------
 
+```text
 app/
 ├── data/
 │ ├── api/ → Retrofit interfaces
 │ ├── model/ → DTO models and Room entities
+│ ├── local/ → Room database 
 │ └── repository/ → Repository implementations
 │
 ├── domain/
@@ -99,17 +101,24 @@ app/
 │ └── model/ → Domain models
 │
 ├── presentation/
-│ ├── homepage/ → Homepage screen
+│ ├── actorpage/ → Actor information screen
 │ ├── detail/ → Movie/TV details
+│ ├── filmography/ → Actor filmography
+│ ├── gallery/ → Shots from movie
+│ ├── homepage/ → Homepage screen
+│ ├── listpage/ → Collections from filter
 │ ├── search/ → Search functionality
-│ ├── collections/ → User collections
-│ └── staff/ → Actors & directors
+│ ├── profile/ → Personal collections and history
+│ ├── serial/ → Personal collections and history
+│ └── seasons/ → Serial seasons
 │
 ├── di/
 │ └── AppModule.kt → Hilt modules
+│ └── ... other modules
 │
 └── core/
 └── extensions/ → Utility functions, custom decorators
+```
 
 🧪 Key Implementation Details
 -----------------------------
