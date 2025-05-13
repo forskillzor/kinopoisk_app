@@ -2,15 +2,11 @@ package com.example.kinopoisk.domain.usecases
 
 import com.example.kinopoisk.data.repository.Repository
 import com.example.kinopoisk.data.model.Movie
+import jakarta.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
-interface GetTopListUseCase {
 
-    suspend fun getTopList(): List<Movie>
+class GetTopListUseCase @Inject constructor(val repository: Repository) {
+    operator fun invoke(): Flow<List<Movie>> = repository.getTop()
+
 }
-
-//class GetTopListUseCaseImpl(val repository: Repository): GetTopListUseCase {
-//    override suspend fun getTopList(): List<Movie> {
-//        return repository.topList()
-//    }
-//
-//}
