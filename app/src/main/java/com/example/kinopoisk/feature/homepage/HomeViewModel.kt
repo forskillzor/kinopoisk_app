@@ -1,17 +1,14 @@
-package com.example.kinopoisk.presentation.homepage
+package com.example.kinopoisk.feature.homepage
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.kinopoisk.data.Repository
+import com.example.kinopoisk.data.repository.Repository
 import com.example.kinopoisk.data.model.MovieSection
 import com.example.kinopoisk.data.model.SectionType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 

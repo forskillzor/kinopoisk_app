@@ -1,4 +1,4 @@
-package com.example.kinopoisk.data
+package com.example.kinopoisk.data.repository
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -9,7 +9,6 @@ import com.example.kinopoisk.data.model.Movie
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-
 
 class NetworkRepository @Inject constructor(
     private val api: KinopoiskApi
@@ -41,8 +40,8 @@ class NetworkRepository @Inject constructor(
     }
 
     override fun getDynamicGenreCountryList(): Flow<List<Movie>> = flow {
-        val response = api.dynamicGenresAndCountries()
-        emit(response.films)
+//        val response = api.getMoviesByCountryAndGenre()
+//        emit(response.films)
     }
 
     companion object {

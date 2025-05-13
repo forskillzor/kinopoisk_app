@@ -6,8 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
-import com.example.kinopoisk.data.Repository
+import com.example.kinopoisk.data.repository.Repository
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import dagger.hilt.android.AndroidEntryPoint
 
 const val APPLICATION_TAG = "application_tag"
@@ -24,5 +25,15 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_navigation)?.setupWithNavController(
             navController
         )
+        NavigationBarView.OnItemSelectedListener { item ->
+            when(item.itemId) {
+                R.id.homeFragment -> {
+                    true
+                }
+                R.id.searchFragment -> {true}
+                R.id.profileFragment -> {true}
+                else -> {false}
+            }
+        }
     }
 }

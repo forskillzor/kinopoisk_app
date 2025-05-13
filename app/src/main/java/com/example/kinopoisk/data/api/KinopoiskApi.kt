@@ -24,11 +24,14 @@ interface KinopoiskApi {
     @GET("/api/v2.2/films/collections")
     suspend fun series(@Query("type") type: String = "POPULAR_SERIES"): CollectionsResponse
 
-    @GET("/api/v2.2/films/film")
-    suspend fun dynamicGenresAndCountries(
-        @Query("countries") countries: List<Int> = listOf(1),
-        @Query("genres") genres: List<Int> = listOf(1)
-    ): Top250Response
+    @GET("/api/v2.2/films")
+    suspend fun getMoviesByCountryAndGenre(
+        @Query("countries") countryId: Int,
+        @Query("genres") genreId: Int,
+        @Query("ratingFrom") ratingFrom: Double = 8.0,
+        @Query("type") type: String = "FILM",
+        @Query("page") page: Int = 1
+    ): CollectionsResponse
 
 
 
