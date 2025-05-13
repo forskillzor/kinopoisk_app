@@ -1,4 +1,4 @@
-🎬 KinoPoisk Clone (Android)
+🎬 KinoPoisk Unofficial App (Android)
 ============================
 
 > A full-featured Android app for movie and TV series discovery with dynamic collections, search filters, local storage, and modern architecture using Kotlin, Hilt, Paging 3, Room, and Clean Architecture
@@ -116,7 +116,7 @@ app/
 │ └── AppModule.kt → Hilt modules
 │ └── ... other modules
 │
-└── core/
+└── core/ → Base classes
 └── extensions/ → Utility functions, custom decorators
 ```
 
