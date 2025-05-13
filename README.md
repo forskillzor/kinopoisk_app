@@ -88,6 +88,7 @@ Material 3, BottomSheetDialogFragment, RangeSlider, ChipGroup, ViewPager2
 🛠 Project Structure
 --------------------
 
+```text
 app/
 ├── data/
 │ ├── api/ → Retrofit interfaces
@@ -110,6 +111,7 @@ app/
 │
 └── core/
 └── extensions/ → Utility functions, custom decorators
+```
 
 🧪 Key Implementation Details
 -----------------------------
