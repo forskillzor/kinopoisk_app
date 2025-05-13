@@ -83,8 +83,10 @@ Material 3, BottomSheetDialogFragment, RangeSlider, ChipGroup, ViewPager2
 📱 Screenshots
 --------------
 
-<img src="https://github.com/forskillzor/kinopoisk_app/blob/main/screenshots/homepage.jpeg" width="200" />
-<img src="https://github.com/forskillzor/kinopoisk_app/blob/main/screenshots/listpage.jpeg" width="200" />
+<div style="display: flex; gap: 20px;">
+  <img src="https://github.com/forskillzor/kinopoisk_app/blob/main/screenshots/homepage.jpeg " width="200" />
+  <img src="https://github.com/forskillzor/kinopoisk_app/blob/main/screenshots/listpage.jpeg " width="200" />
+</div>
 
 🛠 Project Structure
 --------------------
