@@ -1,4 +1,4 @@
-package com.example.kinopoisk.feature.listpage
+package com.example.kinopoisk.presentation.listpage
 
 import android.graphics.Rect
 import android.os.Bundle
