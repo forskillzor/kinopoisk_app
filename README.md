@@ -1,7 +1,7 @@
 🎬 KinoPoisk Unofficial App (Android)
 ============================
 
-> A full-featured Android app for movie and TV series discovery with dynamic collections, search filters, local storage, and modern architecture using Kotlin, Hilt, Paging 3, Room, and Clean Architecture
+> A full-featured Android app for movie and TV series discovery with dynamic collections, search filters, local storage, and modern architecture using Kotlin, Hilt, Paging 3, Room, Retrofit and Clean Architecture
 
 🧩 Description
 --------------
@@ -307,7 +307,6 @@ dependencies {
 ----------
 
 MIT License  
-Feel free to change it to your preferred license (Apache, GPL, etc.)
 
 💡 Contributing
 ---------------
