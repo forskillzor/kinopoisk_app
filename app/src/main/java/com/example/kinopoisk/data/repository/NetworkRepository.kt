@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.flow
 class NetworkRepository @Inject constructor(
     private val api: KinopoiskApi
 ): Repository {
-    override fun getTop250Paged(): Flow<PagingData<Movie>> {
+    override fun getTopPaged(): Flow<PagingData<Movie>> {
         return Pager(config = PagingConfig(pageSize = 20)) {
             TopListPagingSource(api)
         }.flow
@@ -29,8 +29,8 @@ class NetworkRepository @Inject constructor(
         emit(response.items)
     }
 
-    override fun getTop250(): Flow<List<Movie>> = flow {
-        val response = api.top250(1)
+    override fun getTop(): Flow<List<Movie>> = flow {
+        val response = api.top(1)
         emit(response.films)
     }
 

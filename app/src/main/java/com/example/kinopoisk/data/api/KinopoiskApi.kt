@@ -13,7 +13,7 @@ import retrofit2.http.Query
 
 interface KinopoiskApi {
     @GET("/api/v2.2/films/top?type=TOP_250_BEST_FILMS")
-    suspend fun top250(@Query("page") page: Int): Top250Response
+    suspend fun top(@Query("page") page: Int): Top250Response
 
     @GET("/api/v2.2/films/collections")
     suspend fun premieres(@Query("type") type: String = "CLOSES_RELEASES"): CollectionsResponse

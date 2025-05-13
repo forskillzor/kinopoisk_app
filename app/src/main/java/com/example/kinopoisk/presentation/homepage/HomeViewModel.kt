@@ -28,7 +28,7 @@ class HomeViewModel @Inject constructor(
             runCatching {
                 val premieres = repository.getPremieres().first()
                 val popular = repository.getPopular().first()
-                val top250 = repository.getTop250().first()
+                val top250 = repository.getTop().first()
                 val series = repository.getSeries().first()
                 listOf(
                     MovieSection("Премьеры", premieres, SectionType.PREMIERES),
