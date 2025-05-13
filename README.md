@@ -84,6 +84,8 @@ Material 3, BottomSheetDialogFragment, RangeSlider, ChipGroup, ViewPager2
 --------------
 
 \[Insert screenshots here when available\]
+![Alt text](https://github.com/forskillzor/kinopoisk_app/blob/main/screenshots/homepage.jpeg "Home page")
+![Alt text](https://github.com/forskillzor/kinopoisk_app/blob/main/screenshots/listpage.jpeg "List page")
 
 🛠 Project Structure
 --------------------
