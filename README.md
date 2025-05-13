@@ -193,7 +193,7 @@ findNavController().navigate(directions)
 ----------------------
 ```kotlin
 @GET("/api/v2.2/films/top?type=TOP\_250\_BEST\_FILMS")
-suspend fun getTop250(): TopMoviesResponse
+suspend fun getTop(): TopMoviesResponse
 
 @GET("/api/v2.2/films/filters")
 suspend fun getFilters(): FiltersResponse
