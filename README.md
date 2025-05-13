@@ -3,8 +3,6 @@
 
 > A full-featured Android app for movie and TV series discovery with dynamic collections, search filters, local storage, and modern architecture using Kotlin, Hilt, Paging 3, Room, and Clean Architecture
 
-* * *
-
 🧩 Description
 --------------
 
@@ -16,8 +14,6 @@ This is a fully functional Android application built as a clone of the Kinopoisk
 *   User-defined collections: "Favorites", "Want to Watch", "Watched"
 *   Integration with [Kinopoisk Unofficial API](https://kinopoiskapiunofficial.tech/)
 *   Offline-first design with Room caching and DataStore preferences
-
-* * *
 
 🧱 Features
 -----------
@@ -68,8 +64,6 @@ Error reporting and crash tracking
 ✅ **Retrofit + Kotlinx Serialization**
 Efficient network communication
 
-* * *
-
 🚀 Tech Stack
 -------------
 
@@ -86,109 +80,60 @@ Jetpack Navigation Component
 Firebase Crashlytics
 Material 3, BottomSheetDialogFragment, RangeSlider, ChipGroup, ViewPager2
 
-* * *
-
 📱 Screenshots
 --------------
 
-
-
 \[Insert screenshots here when available\]
-
-* * *
 
 🛠 Project Structure
 --------------------
 
 app/
-
 ├── data/
-
 │ ├── api/ → Retrofit interfaces
-
 │ ├── model/ → DTO models and Room entities
-
 │ └── repository/ → Repository implementations
-
 │
-
 ├── domain/
-
 │ ├── usecases/ → Business logic layer
-
 │ └── model/ → Domain models
-
 │
-
 ├── presentation/
-
 │ ├── homepage/ → Homepage screen
-
 │ ├── detail/ → Movie/TV details
-
 │ ├── search/ → Search functionality
-
 │ ├── collections/ → User collections
-
 │ └── staff/ → Actors & directors
-
 │
-
 ├── di/
-
 │ └── AppModule.kt → Hilt modules
-
 │
-
 └── core/
-
 └── extensions/ → Utility functions, custom decorators
-
-* * *
 
 🧪 Key Implementation Details
 -----------------------------
 
 ### 🔁 Dynamic Collection Generation
 
-
+```kotlin
 class GetDynamicGenreCountryUseCase @Inject constructor(
-
-private val repository: Repository
-
+    private val repository: Repository
 ) {
-
-operator fun invoke(): Flow<List<Movie\>> \= flow {
-
-val filters \= repository.getFilters()
-
-val randomGenre \= filters.genres.shuffled().first()
-
-val randomCountry \= filters.countries.shuffled().first()
-
-  
-
-val response \= repository.getMoviesByGenreAndCountry(
-
-countryId \= randomCountry.id,
-
-genreId \= randomGenre.id
-
-)
-
-  
-
-emit(response.items)
-
-}.catch { e \->
-
-throw IOException("Не удалось получить фильмы по стране и жанру", e)
-
-}.flowOn(Dispatchers.IO)
-
+    operator fun invoke(): Flow<List<Movie>> = flow {
+        val filters = repository.getFilters()
+        val randomGenre = filters.genres.shuffled().first()
+        val randomCountry = filters.countries.shuffled().first()
+        val response = repository.getMoviesByGenreAndCountry(
+            countryId = randomCountry.id,
+            genreId = randomGenre.id
+        )
+        emit(response.items)
+    }.catch { e ->
+        throw IOException("Не удалось получить фильмы по стране и жанру", e)
+    }.flowOn(Dispatchers.IO)
 }
-
-* * *
+```
 
 ### 🧰 Search Filters
 
@@ -202,8 +147,6 @@ The app supports advanced search with:
 *   Hide already watched toggle
 
 All selected filters are persisted via **DataStore** .
-
-* * *
 
 ### 🗂 Local Data Storage
 
@@ -220,8 +163,6 @@ All selected filters are persisted via **DataStore** .
 *   Theme settings
 *   App metadata
 
-* * *
-
 ### 🧭 Navigation
 
 Navigation uses **Jetpack Navigation Component** with:
@@ -231,77 +172,54 @@ Navigation uses **Jetpack Navigation Component** with:
 *   Shared Element Transitions for smooth movie/actor transitions
 
 Example:
-
-
-val directions \= HomepageFragmentDirections.actionOpenDetails(filmId)
-
+```kotlin
+val directions = HomepageFragmentDirections.actionOpenDetails(filmId)
 findNavController().navigate(directions)
-
-* * *
+```
 
 📦 Sample API Requests
 ----------------------
-
+```kotlin
 @GET("/api/v2.2/films/top?type=TOP\_250\_BEST\_FILMS")
-
 suspend fun getTop250(): TopMoviesResponse
 
-  
-
 @GET("/api/v2.2/films/filters")
-
 suspend fun getFilters(): FiltersResponse
 
-  
-
 @GET("/api/v2.2/films?countries={countryId}&genres={genreId}")
-
 suspend fun getMoviesByGenreAndCountry(
-
-@Query("countries") Int countryId,
-
-@Query("genres") Int genreId
-
+    @Query("countries") countryId: Int,
+    @Query("genres") genreId: Int
 ): CollectionsResponse
-
-* * *
+```
 
 🧬 Sealed Class for UI State
 ----------------------------
-
-sealed class HomeUiState<out T\> {
-
-data class Success<out T\>(val data: T) : HomeUiState<T\>()
-
-data class Error(val exception: Throwable) : HomeUiState<Nothing\>()
-
-object Loading : HomeUiState<Nothing\>()
+```kotlin
+sealed class HomeUiState<out T> {
+    data class Success<out T>(val data: T) : HomeUiState<T>()
+    data class Error(val exception: Throwable) : HomeUiState<Nothing>()
+    object Loading : HomeUiState<Nothing>()
 
 }
+```
 
 Used in ViewModel:
+```kotlin
 
-
-private val \_uiState \= MutableStateFlow<HomeUiState<List<MovieSection\>>>(HomeUiState.Loading)
-
-val uiState: StateFlow<HomeUiState<List<MovieSection\>>> \= \_uiState.asStateFlow()
-
-* * *
+private val _uiState = MutableStateFlow<HomeUiState<List<MovieSection>>>(HomeUiState.Loading)
+val uiState: StateFlow<HomeUiState<List<MovieSection>>> = _uiState.asStateFlow()
+```
 
 📌 Sample Use Case
 ------------------
-
+```kotlin
 class GetPremieresUseCase @Inject constructor(
-
-private val repository: Repository
-
+    private val repository: Repository
 ) {
-
-operator fun invoke(): Flow<List<Movie\>> \= repository.getPremieres()
-
+    operator fun invoke(): Flow<List<Movie>> = repository.getPremieres()
 }
-
-* * *
+```
 
 🧩 Sample Section Rendering
 ---------------------------
@@ -315,110 +233,63 @@ Each section on the homepage includes:
 
 RecyclerView + GridLayoutManager for 2-column layout:
 
+```xml
 <androidx.recyclerview.widget.RecyclerView
-
 android:id\="@+id/recycler\_view"
-
 android:layout\_width\="match\_parent"
-
 android:layout\_height\="wrap\_content"
-
 android:padding\="4dp"
-
 android:clipToPadding\="false"/>
-
-* * *
+```
 
 📦 Dependencies (`build.gradle.kts`)
 ------------------------------------
-
+```kotlin
 dependencies {
-
-implementation(libs.androidx.core.ktx)
-
-implementation(libs.appcompat)
-
-implementation(libs.material)
-
-  
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
 
 // Hilt
-
-implementation(libs.hilt.android)
-
-kapt(libs.hilt.compiler)
-
-  
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
 // ViewModel + LiveData
-
-implementation(libs.lifecycle.viewmodel.ktx)
-
-implementation(libs.lifecycle.runtime.ktx)
-
-  
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
 
 // Coroutines + Flow
-
-implementation(libs.kotlinx.coroutines.android)
-
-implementation(libs.kotlinx.serialization.json)
-
-  
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.serialization.json)
 
 // Retrofit
-
-implementation(libs.retrofit)
-
-implementation(libs.retrofit.kotlinx.serialization.converter)
-
-implementation(libs.okhttp.logging.interceptor)
-
-  
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.kotlinx.serialization.converter)
+    implementation(libs.okhttp.logging.interceptor)
 
 // Paging 3
-
-implementation(libs.paging.runtime)
-
-  
+    implementation(libs.paging.runtime)
 
 // Room
-
-implementation(libs.room.runtime)
-
-implementation(libs.room.ktx)
-
-annotationProcessor(libs.room.compiler)
-
-kapt(libs.room.compiler)
-
-  
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    annotationProcessor(libs.room.compiler)
+    kapt(libs.room.compiler)
 
 // Glide
-
-implementation(libs.glide)
-
-kapt(libs.glide.compiler)
-
-  
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
 
 // DataStore
-
-implementation(libs.datastore.preferences)
-
-  
+    implementation(libs.datastore.preferences)
 
 // Firebase
-
-implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
-
-implementation("com.google.firebase:firebase-analytics-ktx")
-
-implementation("com.google.firebase:firebase-crashlytics-ktx")
+    implementation(platform("com.google.firebase:firebase-bom:32.1.1"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-crashlytics-ktx")
 
 }
-
-* * *
+```
 
 🧾 License
 ----------
@@ -426,39 +297,31 @@ implementation("com.google.firebase:firebase-crashlytics-ktx")
 MIT License  
 Feel free to change it to your preferred license (Apache, GPL, etc.)
 
-* * *
-
 💡 Contributing
 ---------------
 
 Contributions are welcome! Please open an issue first before making a PR.
 
-* * *
-
 📬 Contact
 ----------
 
 Sergey Orlov 
-📧 [formyfrontend@gmail.com](mailto:formyfrontend@gmail.com)  
-🔗 LinkedIn: [https://linkedin.com/in/your-profile](https://linkedin.com/in/your-profile)  
-📱 GitHub: [https://github.com/forskillzor/](https://github.com/forskillzor/)
 
-* * *
+email: [formyfrontend@gmail.com](mailto:formyfrontend@gmail.com)  
+telegram: [@orlovisnotabird](@orlovisnotabird)
+LinkedIn: [https://linkedin.com/in/your-profile](https://linkedin.com/in/your-profile)  
+GitHub: [https://github.com/forskillzor/](https://github.com/forskillzor/)
 
 ⭐️ Show Your Support
 --------------------
 
 If you like this project, give it a ⭐️!
 
-* * *
-
 🧑‍💻 Author
 ------------
 
 Sergey Orlov
-_Self-taught Android Developer | Kotlin Enthusiast_
-
-* * *
+Self-taught Android Developer | Kotlin Enthusiast
 
 🧠 Why This Project?
 --------------------
@@ -469,8 +332,6 @@ This project was created during a personal journey into **Android development** 
 *   Solid implementation of **MVVM + Flow + StateFlow**
 *   Beautiful **UI design** based on provided mockups
 *   **Professional-grade structure** , ready for job applications or portfolio showcase
-
-* * *
 
 ✅ Future Improvements
 ---------------------
