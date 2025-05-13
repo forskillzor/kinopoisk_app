@@ -5,6 +5,10 @@ import androidx.lifecycle.viewModelScope
 import com.example.kinopoisk.data.repository.Repository
 import com.example.kinopoisk.data.model.MovieSection
 import com.example.kinopoisk.data.model.SectionType
+import com.example.kinopoisk.domain.usecases.GetPopularUseCase
+import com.example.kinopoisk.domain.usecases.GetPremieresUseCase
+import com.example.kinopoisk.domain.usecases.GetSeriesUseCase
+import com.example.kinopoisk.domain.usecases.GetTopListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +18,10 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: Repository
+    private val getPremieresUseCase: GetPremieresUseCase,
+    private val getPopularUseCase: GetPopularUseCase,
+    private val getTopListUseCase: GetTopListUseCase,
+    private val getSeriesUseCase: GetSeriesUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val uiState: StateFlow<HomeUiState> = _uiState
@@ -26,10 +33,10 @@ class HomeViewModel @Inject constructor(
     private fun loadSections() {
         viewModelScope.launch {
             runCatching {
-                val premieres = repository.getPremieres().first()
-                val popular = repository.getPopular().first()
-                val top250 = repository.getTop().first()
-                val series = repository.getSeries().first()
+                val premieres = getPremieresUseCase().first()
+                val popular = getPopularUseCase().first()
+                val top250 = getTopListUseCase().first()
+                val series = getSeriesUseCase().first()
                 listOf(
                     MovieSection("Премьеры", premieres, SectionType.PREMIERES),
                     MovieSection("Популярноое", popular, SectionType.POPULAR),
