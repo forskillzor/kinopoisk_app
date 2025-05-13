@@ -1,4 +1,4 @@
-package com.example.kinopoisk.presentation.listpage
+package com.example.kinopoisk.feature.listpage
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

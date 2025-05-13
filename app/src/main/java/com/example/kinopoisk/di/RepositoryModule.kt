@@ -1,7 +1,7 @@
 package com.example.kinopoisk.di
 
-import com.example.kinopoisk.data.NetworkRepository
-import com.example.kinopoisk.data.Repository
+import com.example.kinopoisk.data.repository.NetworkRepository
+import com.example.kinopoisk.data.repository.Repository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

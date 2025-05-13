@@ -1,14 +1,14 @@
-package com.example.kinopoisk.presentation.homepage
+package com.example.kinopoisk.feature.homepage
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kinopoisk.R
 import com.example.kinopoisk.data.model.MovieSection
-import kotlinx.coroutines.flow.take
 
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.SectionViewHolder>() {
 
@@ -34,7 +34,9 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.SectionViewHolder>() {
             recyclerView.adapter = adapter
 
             btnSeeAll.setOnClickListener {
-                // Перейти на экран со всеми фильмами этой категории
+                HomepageFragmentDirections.actionHomepageFragmentToListPageFragment().let {
+                    itemView.findNavController().navigate(it)
+                }
             }
         }
     }

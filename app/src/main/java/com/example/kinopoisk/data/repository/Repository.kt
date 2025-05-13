@@ -1,4 +1,4 @@
-package com.example.kinopoisk.data
+package com.example.kinopoisk.data.repository
 
 import androidx.paging.PagingData
 import com.example.kinopoisk.data.model.Movie

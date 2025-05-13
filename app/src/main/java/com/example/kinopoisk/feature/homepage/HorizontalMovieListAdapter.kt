@@ -1,4 +1,4 @@
-package com.example.kinopoisk.presentation.homepage
+package com.example.kinopoisk.feature.homepage
 
 import android.annotation.SuppressLint
 import android.util.Log
