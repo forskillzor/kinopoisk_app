@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 interface Repository {
     fun getPremieres(): Flow<List<Movie>>
     fun getPopular(): Flow<List<Movie>>
-    fun getTop250(): Flow<List<Movie>>
-    fun getTop250Paged(): Flow<PagingData<Movie>>
+    fun getTop(): Flow<List<Movie>>
+    fun getTopPaged(): Flow<PagingData<Movie>>
     fun getSeries(): Flow<List<Movie>>
     fun getDynamicGenreCountryList(): Flow<List<Movie>>
 }
