@@ -2,7 +2,7 @@ package com.example.kinopoisk.data.model
 
 data class MovieSection(
     val title: String,
-    val movies: List<Movie>,
+    val movies: List<MovieDto>,
     val type: SectionType
 )
 

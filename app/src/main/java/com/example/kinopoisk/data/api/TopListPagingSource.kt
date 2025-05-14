@@ -2,12 +2,12 @@ package com.example.kinopoisk.data.api
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.example.kinopoisk.data.model.Movie
+import com.example.kinopoisk.data.model.MovieDto
 
 class TopListPagingSource(
     private val api: KinopoiskApi
-): PagingSource<Int, Movie>() {
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
+): PagingSource<Int, MovieDto>() {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieDto> {
         val page = params.key?: 1
         val response = api.top(page)
         return LoadResult.Page(
@@ -16,7 +16,7 @@ class TopListPagingSource(
             nextKey = page + 1
         )
     }
-    override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, MovieDto>): Int? {
         return state.anchorPosition?.let { anchor ->
             state.closestPageToPosition(anchor)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchor)?.nextKey?.minus(1)
