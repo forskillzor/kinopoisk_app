@@ -6,23 +6,23 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.kinopoisk.data.model.Movie
+import com.example.kinopoisk.data.model.MovieDto
 import com.example.kinopoisk.databinding.ItemMovieBinding
 
-class MovieGridAdapter(): PagingDataAdapter<Movie, MovieGridAdapter.MovieViewHolder>(COMPARATOR) {
+class MovieGridAdapter(): PagingDataAdapter<MovieDto, MovieGridAdapter.MovieViewHolder>(COMPARATOR) {
 
     companion object{
-        val COMPARATOR = object : DiffUtil.ItemCallback<Movie>() {
+        val COMPARATOR = object : DiffUtil.ItemCallback<MovieDto>() {
             override fun areItemsTheSame(
-                oldItem: Movie,
-                newItem: Movie
+                oldItem: MovieDto,
+                newItem: MovieDto
             ): Boolean {
                 return oldItem.filmId == newItem.filmId
             }
 
             override fun areContentsTheSame(
-                oldItem: Movie,
-                newItem: Movie
+                oldItem: MovieDto,
+                newItem: MovieDto
             ): Boolean {
                 return oldItem == newItem
             }
@@ -47,13 +47,13 @@ class MovieGridAdapter(): PagingDataAdapter<Movie, MovieGridAdapter.MovieViewHol
         }
     }
     class MovieViewHolder(val binding: ItemMovieBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(movie: Movie) {
-            binding.filmName.text = movie.nameRu
-            binding.ratingBadge.text = movie.rating
-            binding.genre.text = movie.genres[0].genre
+        fun bind(movieDto: MovieDto) {
+            binding.filmName.text = movieDto.nameRu
+            binding.ratingBadge.text = movieDto.rating
+            binding.genre.text = movieDto.genres[0].genre
 
             Glide.with(binding.poster)
-                .load(movie.posterUrlPreview)
+                .load(movieDto.posterUrlPreview)
                 .into(binding.poster)
         }
     }

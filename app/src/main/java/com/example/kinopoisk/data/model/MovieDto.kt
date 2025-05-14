@@ -1,6 +1,6 @@
 package com.example.kinopoisk.data.model
 
-data class Movie(
+data class MovieDto(
     val filmId: Int,
     val nameRu: String,
     val nameEn: String,

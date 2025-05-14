@@ -1,7 +1,7 @@
 package com.example.kinopoisk.di
 
-import com.example.kinopoisk.data.repository.NetworkRepository
-import com.example.kinopoisk.data.repository.Repository
+import com.example.kinopoisk.data.repository.NetworkMovieRepository
+import com.example.kinopoisk.domain.repository.MovieRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun provideRepository(networkRepository: NetworkRepository): Repository {
-        return networkRepository
+    fun provideRepository(networkMovieRepository: NetworkMovieRepository): MovieRepository {
+        return networkMovieRepository
     }
 }

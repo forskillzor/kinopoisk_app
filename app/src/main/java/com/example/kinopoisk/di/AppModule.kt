@@ -1,6 +1,5 @@
 package com.example.kinopoisk.di
 
-import com.example.kinopoisk.data.repository.Repository
 import com.example.kinopoisk.data.api.KinopoiskApi
 import com.example.kinopoisk.data.api.RetrofitClient
 import dagger.Module
