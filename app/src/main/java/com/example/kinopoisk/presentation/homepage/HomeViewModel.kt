@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.kinopoisk.data.repository.Repository
 import com.example.kinopoisk.data.model.MovieSection
 import com.example.kinopoisk.data.model.SectionType
+import com.example.kinopoisk.domain.usecases.GetDynamicGenreCountryUseCase
 import com.example.kinopoisk.domain.usecases.GetPopularUseCase
 import com.example.kinopoisk.domain.usecases.GetPremieresUseCase
 import com.example.kinopoisk.domain.usecases.GetSeriesUseCase
@@ -21,7 +22,8 @@ class HomeViewModel @Inject constructor(
     private val getPremieresUseCase: GetPremieresUseCase,
     private val getPopularUseCase: GetPopularUseCase,
     private val getTopListUseCase: GetTopListUseCase,
-    private val getSeriesUseCase: GetSeriesUseCase
+    private val getSeriesUseCase: GetSeriesUseCase,
+    private val getDynamicGenreCountryUseCase: GetDynamicGenreCountryUseCase
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<HomeUiState>(HomeUiState.Loading)
     val uiState: StateFlow<HomeUiState> = _uiState
@@ -36,12 +38,16 @@ class HomeViewModel @Inject constructor(
                 val premieres = getPremieresUseCase().first()
                 val popular = getPopularUseCase().first()
                 val top250 = getTopListUseCase().first()
+                val dynamics = getDynamicGenreCountryUseCase().first()
                 val series = getSeriesUseCase().first()
+                val genre = dynamics.first().genres.first().genre.uppercase()
+                val country = dynamics.first().countries.first().country.uppercase()
                 listOf(
                     MovieSection("Премьеры", premieres, SectionType.PREMIERES),
                     MovieSection("Популярноое", popular, SectionType.POPULAR),
                     MovieSection("Топ-250", top250, SectionType.TOP_250),
                     MovieSection("Сериалы", series, SectionType.SERIES),
+                    MovieSection("$genre $country", dynamics, SectionType.DYNAMIC_GENRE_COUNTRY)
                 )
             }.onSuccess { sections ->
                 _uiState.value = HomeUiState.Success(sections)
