@@ -2,6 +2,7 @@ package com.example.kinopoisk.data.api
 
 import com.example.kinopoisk.BuildConfig
 import com.example.kinopoisk.data.model.CollectionsResponse
+import com.example.kinopoisk.data.model.FiltersResponse
 import com.example.kinopoisk.data.model.Top250Response
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
@@ -12,6 +13,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface KinopoiskApi {
+    @GET("/api/v2.2/films/filters")
+    suspend fun getFilters(): FiltersResponse
+
     @GET("/api/v2.2/films/top?type=TOP_250_BEST_FILMS")
     suspend fun top(@Query("page") page: Int): Top250Response
 
@@ -28,8 +32,8 @@ interface KinopoiskApi {
     suspend fun getMoviesByCountryAndGenre(
         @Query("countries") countryId: Int,
         @Query("genres") genreId: Int,
-        @Query("ratingFrom") ratingFrom: Double = 8.0,
-        @Query("type") type: String = "FILM",
+        @Query("ratingFrom") ratingFrom: Double = 0.0,
+        @Query("type") type: String = "ALL",
         @Query("page") page: Int = 1
     ): CollectionsResponse
 

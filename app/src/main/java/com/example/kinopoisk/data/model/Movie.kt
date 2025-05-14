@@ -6,15 +6,12 @@ data class Movie(
     val nameEn: String,
     val year: String,
     val filmLength: String,
-    val countries: List<Country>,
-    val genres: List<Genre>,
+    val countries: List<CountryDto>,
+    val genres: List<GenreDto>,
     val rating: String,
     val posterUrl: String,
     val posterUrlPreview: String
 )
 
-data class Genre(val genre: String)
-data class Country(val country: String)
-
-data class Top250Response(val pagesCount: Int, val films: List<Movie>)
-data class CollectionsResponse(val total: Int, val totalPages: Int, val items: List<Movie>)
+data class GenreDto(val id: Int, val genre: String)
+data class CountryDto(val id: Int, val country: String)
