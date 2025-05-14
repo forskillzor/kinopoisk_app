@@ -52,15 +52,15 @@ class NetworkRepository @Inject constructor(
         emit(response.items)
     }.flowOn(Dispatchers.IO)
 
-    override fun getDynamicGenreCountryList(): Flow<List<Movie>> = flow {
+    override fun getDynamicGenreCountryList(countryId: Int, genreId: Int): Flow<List<Movie>> = flow {
         val filters = api.getFilters()
         val randomGenre = filters.genres.shuffled().first()
         val randomCountry = filters.countries.shuffled().first()
 
         val response = api.getMoviesByCountryAndGenre(
             // todo change random to filters
-            countryId = Random.nextInt(1,10),
-            genreId = Random.nextInt(1,10)
+            countryId = countryId,
+            genreId = genreId
         )
         emit(response.items)
     }.catch { e ->
