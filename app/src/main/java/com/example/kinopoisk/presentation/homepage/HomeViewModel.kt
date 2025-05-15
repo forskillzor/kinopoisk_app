@@ -33,7 +33,11 @@ class HomeViewModel @Inject constructor(
             getTopListUseCase(),
             getSeriesUseCase(),
             getDynamicGenreCountryUseCase()
-        ) { premieres, popular, top250, series, dynamics ->
+        ) { premieres,
+            popular,
+            top250,
+            series,
+            dynamics ->
             listOf(
                 MovieSection("Премьеры", premieres, SectionType.PREMIERES),
                 MovieSection("Популярноое", popular, SectionType.POPULAR),

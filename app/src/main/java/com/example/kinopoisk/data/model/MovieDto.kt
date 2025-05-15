@@ -2,13 +2,16 @@ package com.example.kinopoisk.data.model
 
 data class MovieDto(
     val filmId: Int,
-    val nameRu: String,
-    val nameEn: String,
-    val year: String,
-    val filmLength: String,
+    val nameRu: String?,
+    val nameEn: String?,
+    val year: String?,
+    val filmLength: String?,
+    val description: String?,
     val countries: List<CountryDto>,
     val genres: List<GenreDto>,
-    val rating: String,
+    val rating: String?,
+    val ratingKinopoisk: String?,
+    val ratingImdb: String?,
     val posterUrl: String,
     val posterUrlPreview: String
 )
