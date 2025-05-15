@@ -1,9 +1,8 @@
 package com.example.kinopoisk.domain.entities
 
 data class Movie(
-    val filmId: Int,
-    val nameRu: String,
-    val nameEn: String,
+    val id: Int,
+    val title: String,
     val year: String,
     val filmLength: String,
     val countries: List<Country>,
