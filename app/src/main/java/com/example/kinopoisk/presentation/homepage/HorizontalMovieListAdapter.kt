@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kinopoisk.data.model.MovieDto
 import com.example.kinopoisk.databinding.ItemMovieBinding
+import com.example.kinopoisk.domain.entities.Movie
 
 class HorizontalMovieListAdapter : RecyclerView.Adapter<HorizontalMovieListAdapter.MovieViewHolder>() {
-    private var movieDtos = listOf<MovieDto>()
+    private var movies = listOf<Movie>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun submitList(list: List<MovieDto>) {
-        movieDtos = list
+    fun submitList(list: List<Movie>) {
+        movies = list
         notifyDataSetChanged()
     }
     override fun onCreateViewHolder(
@@ -30,26 +31,25 @@ class HorizontalMovieListAdapter : RecyclerView.Adapter<HorizontalMovieListAdapt
         holder: MovieViewHolder,
         position: Int
     ) {
-        holder.bind(movieDtos[position])
+        holder.bind(movies[position])
     }
 
-    override fun getItemCount(): Int = movieDtos.size
+    override fun getItemCount(): Int = movies.size
 
     inner class MovieViewHolder(private val binding: ItemMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(movieDto: MovieDto) {
-            binding.filmName.text = movieDto.nameRu
+        fun bind(movie: Movie) {
+            binding.filmName.text = movie.title
             Glide.with(binding.poster)
-                .load(movieDto.posterUrlPreview)
+                .load(movie.posterUrlPreview)
                 .into(binding.poster)
-            Log.d("HorizontalMovieListAdapter", "$movieDto")
-            if (movieDto.rating == null) {
+            if (movie.rating == null) {
                 binding.ratingBadge.visibility = View.GONE
             } else {
-                binding.ratingBadge.text = movieDto.rating
+                binding.ratingBadge.text = movie.rating
             }
-            binding.genre.text = movieDto.genres[0].genre
+            binding.genre.text = movie.genres[0].genre
         }
     }
 }

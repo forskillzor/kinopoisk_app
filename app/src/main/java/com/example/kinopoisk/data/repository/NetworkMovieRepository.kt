@@ -9,6 +9,8 @@ import com.example.kinopoisk.data.model.CollectionsResponse
 import com.example.kinopoisk.data.model.FiltersResponse
 import com.example.kinopoisk.data.model.MovieDto
 import com.example.kinopoisk.data.model.Top250Response
+import com.example.kinopoisk.domain.entities.Movie
+import com.example.kinopoisk.domain.mappers.DataToDomainMapper
 import com.example.kinopoisk.domain.repository.MovieRepository
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -20,11 +22,12 @@ import java.io.IOException
 
 private inline fun <reified T> fetchMovies(
     crossinline apiCall: suspend () -> T
-): Flow<List<MovieDto>> where T : Any {
+): Flow<List<Movie>> where T : Any {
     return flow {
         val response = apiCall.invoke()
+        // todo add map to domain here
         val movies = extractMoviesFromResponse(response)
-        emit(movies)
+        emit(movies.map(DataToDomainMapper::map))
     }.flowOn(Dispatchers.IO)
 }
 private fun extractMoviesFromResponse(response: Any): List<MovieDto> {
@@ -48,23 +51,23 @@ class NetworkMovieRepository @Inject constructor(
         emit(response)
     }.flowOn(Dispatchers.IO)
 
-    override fun getPremieres(): Flow<List<MovieDto>> {
+    override fun getPremieres(): Flow<List<Movie>> {
         return fetchMovies { api.premieres() }
     }
 
-    override fun getPopular(): Flow<List<MovieDto>> {
+    override fun getPopular(): Flow<List<Movie>> {
         return fetchMovies { api.popular() }
     }
 
-    override fun getTop(): Flow<List<MovieDto>> {
+    override fun getTop(): Flow<List<Movie>> {
         return fetchMovies { api.top() }
     }
 
-    override fun getSeries(): Flow<List<MovieDto>> {
+    override fun getSeries(): Flow<List<Movie>> {
         return fetchMovies { api.series() }
     }
 
-    override fun getDynamicGenreCountryList(countryId: Int, genreId: Int): Flow<List<MovieDto>> {
+    override fun getDynamicGenreCountryList(countryId: Int, genreId: Int): Flow<List<Movie>> {
         return fetchMovies { api.getMoviesByCountryAndGenre(countryId, genreId) }
     }
 }

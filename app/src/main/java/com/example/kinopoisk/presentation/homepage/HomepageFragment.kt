@@ -1,6 +1,7 @@
 package com.example.kinopoisk.presentation.homepage
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -41,7 +42,7 @@ class HomepageFragment : Fragment() {
                 when(state) {
                     is HomeUiState.Loading -> showLoading()
                     is HomeUiState.Success -> setupSections(state.sections)
-                    is HomeUiState.Error -> showError()
+                    is HomeUiState.Error -> showError(state.exception)
                 }
             }
         }
@@ -56,8 +57,9 @@ class HomepageFragment : Fragment() {
         homeAdapter.submitList(listSections)
 
     }
-    fun showError() {
+    fun showError(e: Throwable) {
         binding.progressBar.visibility = View.GONE
-        Toast.makeText(context, "mesage", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Message: ${e.message}", Toast.LENGTH_SHORT).show()
+        Log.d("TAGG", "message: ${e.message}")
     }
 }
