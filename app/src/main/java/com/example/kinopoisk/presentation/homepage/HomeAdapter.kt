@@ -1,5 +1,6 @@
 package com.example.kinopoisk.presentation.homepage
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.SectionViewHolder>() {
 
     private var sections = listOf<MovieSection>()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun submitList(list: List<MovieSection>) {
         sections = list
         notifyDataSetChanged()
