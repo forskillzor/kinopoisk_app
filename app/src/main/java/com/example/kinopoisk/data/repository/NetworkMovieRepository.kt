@@ -10,7 +10,7 @@ import com.example.kinopoisk.data.model.FiltersResponse
 import com.example.kinopoisk.data.model.MovieDto
 import com.example.kinopoisk.data.model.Top250Response
 import com.example.kinopoisk.domain.entities.Movie
-import com.example.kinopoisk.domain.mappers.DataToDomainMapper
+import com.example.kinopoisk.domain.mappers.toDomain
 import com.example.kinopoisk.domain.repository.MovieRepository
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -24,7 +24,7 @@ private inline fun <reified T> fetchMovies(
     return flow {
         val response = apiCall.invoke()
         val moviesDto = extractMoviesFromResponse(response)
-        emit(moviesDto.map(DataToDomainMapper::map))
+        emit(moviesDto.map(MovieDto::toDomain))
     }.flowOn(Dispatchers.IO)
 }
 private fun extractMoviesFromResponse(response: Any): List<MovieDto> {

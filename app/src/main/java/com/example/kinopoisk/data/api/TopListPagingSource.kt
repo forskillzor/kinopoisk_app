@@ -4,18 +4,16 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.kinopoisk.data.model.MovieDto
 import com.example.kinopoisk.domain.entities.Movie
-import com.example.kinopoisk.domain.mappers.DataToDomainMapper
+import com.example.kinopoisk.domain.mappers.toDomain
 
 class TopListPagingSource(
     private val api: KinopoiskApi
-    // todo change MovieDto to Movie uses DataToDomainMapper
 ): PagingSource<Int, Movie>() {
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val page = params.key?: 1
         val response = api.top(page)
         return LoadResult.Page(
-            // todo add mapping here?
-            data = response.films.map(DataToDomainMapper::map),
+            data = response.films.map(MovieDto::toDomain),
             prevKey = if(page == 1) null else page - 1,
             nextKey = page + 1
         )
