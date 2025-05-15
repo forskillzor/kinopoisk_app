@@ -4,6 +4,7 @@ import com.example.kinopoisk.data.model.MovieDto
 import com.example.kinopoisk.domain.entities.Country
 import com.example.kinopoisk.domain.entities.Genre
 import com.example.kinopoisk.domain.entities.Movie
+import kotlinx.coroutines.flow.Flow
 
 object DataToDomainMapper {
     fun map(movieDto: MovieDto): Movie{
@@ -20,5 +21,8 @@ object DataToDomainMapper {
             posterUrl = movieDto.posterUrl,
             posterUrlPreview = movieDto.posterUrlPreview
         )
+    }
+    fun map(movies: List<MovieDto>): List<Movie> {
+        return movies.map(::map)
     }
 }
