@@ -1,8 +1,10 @@
 package com.example.kinopoisk.data.model
 
+import com.example.kinopoisk.domain.entities.Movie
+
 data class MovieSection(
     val title: String,
-    val movies: List<MovieDto>,
+    val movies: List<Movie>,
     val type: SectionType
 )
 
