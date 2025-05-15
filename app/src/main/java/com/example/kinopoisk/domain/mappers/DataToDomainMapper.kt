@@ -5,24 +5,19 @@ import com.example.kinopoisk.domain.entities.Country
 import com.example.kinopoisk.domain.entities.Genre
 import com.example.kinopoisk.domain.entities.Movie
 
-object DataToDomainMapper {
-    fun map(movieDto: MovieDto): Movie{
-        return Movie(
-            id = movieDto.filmId,
-            title = movieDto.nameRu?: movieDto.nameEn?: "",
-            year = movieDto.year?: "",
-            filmLength = movieDto.filmLength?: "",
-            description = movieDto.description?: "",
-            countries = movieDto.countries
-                .map{country -> Country(country = country.country, id = country.id)},
-            genres = movieDto.genres
-                .map{genre -> Genre(genre = genre.genre, id = genre.id)},
-            rating = movieDto.rating?: movieDto.ratingKinopoisk?: movieDto.ratingImdb,
-            posterUrl = movieDto.posterUrl,
-            posterUrlPreview = movieDto.posterUrlPreview
-        )
-    }
-    fun map(movies: List<MovieDto>): List<Movie> {
-        return movies.map(::map)
-    }
+fun MovieDto.toDomain(): Movie {
+    return Movie(
+        id = filmId,
+        title = nameRu?: nameEn?: "",
+        year = year?: "",
+        filmLength = filmLength?: "",
+        description = description?: "",
+        countries = countries
+            .map{country -> Country(country = country.country, id = country.id)},
+        genres = genres
+            .map{genre -> Genre(genre = genre.genre, id = genre.id)},
+        rating = rating?: ratingKinopoisk?: ratingImdb,
+        posterUrl = posterUrl,
+        posterUrlPreview = posterUrlPreview
+    )
 }
