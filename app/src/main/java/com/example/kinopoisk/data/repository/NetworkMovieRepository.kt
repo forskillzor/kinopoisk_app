@@ -8,6 +8,7 @@ import com.example.kinopoisk.data.api.TopListPagingSource
 import com.example.kinopoisk.data.model.CollectionsResponse
 import com.example.kinopoisk.data.model.FiltersResponse
 import com.example.kinopoisk.data.model.MovieDto
+import com.example.kinopoisk.data.model.Top250Response
 import com.example.kinopoisk.domain.repository.MovieRepository
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
@@ -29,10 +30,10 @@ private inline fun <reified T> fetchMovies(
 private fun extractMoviesFromResponse(response: Any): List<MovieDto> {
     return when (response) {
         is CollectionsResponse -> response.items
+        is Top250Response -> response.films
         else -> emptyList()
     }
 }
-// todo refactor boilerplate
 class NetworkMovieRepository @Inject constructor(
     private val api: KinopoiskApi,
 ): MovieRepository {
@@ -51,36 +52,19 @@ class NetworkMovieRepository @Inject constructor(
         return fetchMovies { api.premieres() }
     }
 
-    override fun getPopular(): Flow<List<MovieDto>> = flow {
-        val response = api.popular()
-        emit(response.items)
-    }.flowOn(Dispatchers.IO)
+    override fun getPopular(): Flow<List<MovieDto>> {
+        return fetchMovies { api.popular() }
+    }
 
-    override fun getTop(): Flow<List<MovieDto>> = flow {
-        val response = api.top(1)
-        emit(response.films)
-    }.flowOn(Dispatchers.IO)
+    override fun getTop(): Flow<List<MovieDto>> {
+        return fetchMovies { api.top() }
+    }
 
-    override fun getSeries(): Flow<List<MovieDto>> = flow {
-        val response = api.series()
-        emit(response.items)
-    }.flowOn(Dispatchers.IO)
+    override fun getSeries(): Flow<List<MovieDto>> {
+        return fetchMovies { api.series() }
+    }
 
-    override fun getDynamicGenreCountryList(countryId: Int, genreId: Int): Flow<List<MovieDto>> = flow {
-        val filters = api.getFilters()
-        val randomGenre = filters.genres.shuffled().first()
-        val randomCountry = filters.countries.shuffled().first()
-
-        val response = api.getMoviesByCountryAndGenre(
-            // todo change random to filters
-            countryId = countryId,
-            genreId = genreId
-        )
-        emit(response.items)
-    }.catch { e ->
-        throw IOException("Не удалось получить фильмы по стране и жанру", e)
-    }.flowOn(Dispatchers.IO)
-
-    companion object {
+    override fun getDynamicGenreCountryList(countryId: Int, genreId: Int): Flow<List<MovieDto>> {
+        return fetchMovies { api.getMoviesByCountryAndGenre(countryId, genreId) }
     }
 }
