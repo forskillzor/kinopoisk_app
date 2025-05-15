@@ -15,19 +15,16 @@ import com.example.kinopoisk.domain.repository.MovieRepository
 import jakarta.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import java.io.IOException
 
 private inline fun <reified T> fetchMovies(
     crossinline apiCall: suspend () -> T
 ): Flow<List<Movie>> where T : Any {
     return flow {
         val response = apiCall.invoke()
-        // todo add map to domain here
-        val movies = extractMoviesFromResponse(response)
-        emit(movies.map(DataToDomainMapper::map))
+        val moviesDto = extractMoviesFromResponse(response)
+        emit(moviesDto.map(DataToDomainMapper::map))
     }.flowOn(Dispatchers.IO)
 }
 private fun extractMoviesFromResponse(response: Any): List<MovieDto> {
