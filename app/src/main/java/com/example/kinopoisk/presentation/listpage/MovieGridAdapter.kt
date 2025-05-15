@@ -8,21 +8,22 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kinopoisk.data.model.MovieDto
 import com.example.kinopoisk.databinding.ItemMovieBinding
+import com.example.kinopoisk.domain.entities.Movie
 
-class MovieGridAdapter(): PagingDataAdapter<MovieDto, MovieGridAdapter.MovieViewHolder>(COMPARATOR) {
+class MovieGridAdapter(): PagingDataAdapter<Movie, MovieGridAdapter.MovieViewHolder>(COMPARATOR) {
 
     companion object{
-        val COMPARATOR = object : DiffUtil.ItemCallback<MovieDto>() {
+        val COMPARATOR = object : DiffUtil.ItemCallback<Movie>() {
             override fun areItemsTheSame(
-                oldItem: MovieDto,
-                newItem: MovieDto
+                oldItem: Movie,
+                newItem: Movie
             ): Boolean {
-                return oldItem.filmId == newItem.filmId
+                return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: MovieDto,
-                newItem: MovieDto
+                oldItem: Movie,
+                newItem: Movie
             ): Boolean {
                 return oldItem == newItem
             }
@@ -47,13 +48,13 @@ class MovieGridAdapter(): PagingDataAdapter<MovieDto, MovieGridAdapter.MovieView
         }
     }
     class MovieViewHolder(val binding: ItemMovieBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieDto: MovieDto) {
-            binding.filmName.text = movieDto.nameRu
-            binding.ratingBadge.text = movieDto.rating
-            binding.genre.text = movieDto.genres[0].genre
+        fun bind(movie: Movie) {
+            binding.filmName.text = movie.title
+            binding.ratingBadge.text = movie.rating
+            binding.genre.text = movie.genres[0].genre
 
             Glide.with(binding.poster)
-                .load(movieDto.posterUrlPreview)
+                .load(movie.posterUrlPreview)
                 .into(binding.poster)
         }
     }
