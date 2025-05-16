@@ -1,6 +1,7 @@
 [versions]
 agp = "8.9.2"
 converterGson = "2.11.0"
+datastorePreferencesAndroid = "1.1.6"
 glide = "4.16.0"
 hiltAndroid = "2.56.2"
 hiltWork = "1.2.0"
@@ -27,6 +28,7 @@ coordinatorlayout = "1.3.0"
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activity" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-datastore-preferences-android = { module = "androidx.datastore:datastore-preferences-android", version.ref = "datastorePreferencesAndroid" }
 androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWork" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
 androidx-navigation-dynamic-features-fragment = { module = "androidx.navigation:navigation-dynamic-features-fragment", version.ref = "navigationFragmentKtx" }
