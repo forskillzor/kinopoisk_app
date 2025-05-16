@@ -34,7 +34,7 @@ private fun extractMoviesFromResponse(response: Any): List<MovieDto> {
         else -> emptyList()
     }
 }
-class NetworkMovieRepository @Inject constructor(
+class MovieRepositoryImpl @Inject constructor(
     private val api: KinopoiskApi,
 ): MovieRepository {
     override fun getTopPaged(): Flow<PagingData<Movie>> {

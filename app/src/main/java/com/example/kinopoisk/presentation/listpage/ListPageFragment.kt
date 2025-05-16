@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kinopoisk.ListPageViewModel
+import com.example.kinopoisk.presentation.listpage.ListPageViewModel
 import com.example.kinopoisk.databinding.FragmentListPageBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

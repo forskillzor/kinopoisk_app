@@ -1,4 +1,4 @@
-package com.example.kinopoisk
+package com.example.kinopoisk.presentation.listpage
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,5 +14,7 @@ import kotlinx.coroutines.flow.Flow
 class ListPageViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ): ViewModel() {
-    val pagingData: Flow<PagingData<Movie>> = this.movieRepository.getTopPaged().cachedIn(viewModelScope)
+    val pagingData: Flow<PagingData<Movie>> = this.movieRepository.getTopPaged().cachedIn(
+        viewModelScope
+    )
 }
