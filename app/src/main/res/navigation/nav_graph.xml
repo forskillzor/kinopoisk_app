@@ -18,6 +18,11 @@
         <action
             android:id="@+id/action_homepageFragment_to_listPageFragment"
             app:destination="@id/listPageFragment" >
+            <argument
+                android:name="sectionType"
+                app:argType="string"
+                app:nullable="false"
+                android:defaultValue="PREMIERES" />
         </action>
     </fragment>
 </navigation>
