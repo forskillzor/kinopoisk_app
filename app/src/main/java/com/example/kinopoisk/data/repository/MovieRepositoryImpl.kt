@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.kinopoisk.data.api.KinopoiskApi
 import com.example.kinopoisk.data.api.TopListPagingSource
+import com.example.kinopoisk.data.local.MovieDao
 import com.example.kinopoisk.data.model.CollectionsResponse
 import com.example.kinopoisk.data.model.FiltersResponse
 import com.example.kinopoisk.data.model.MovieDto
@@ -18,24 +19,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-private inline fun <reified T> fetchMovies(
-    crossinline apiCall: suspend () -> T
-): Flow<List<Movie>> where T : Any {
-    return flow {
-        val response = apiCall.invoke()
-        val moviesDto = extractMoviesFromResponse(response)
-        emit(moviesDto.map(MovieDto::toDomain))
-    }.flowOn(Dispatchers.IO)
-}
-private fun extractMoviesFromResponse(response: Any): List<MovieDto> {
-    return when (response) {
-        is CollectionsResponse -> response.items
-        is Top250Response -> response.films
-        else -> emptyList()
-    }
-}
+
 class MovieRepositoryImpl @Inject constructor(
     private val api: KinopoiskApi,
+    private val movieDao: MovieDao
 ): MovieRepository {
     override fun getTopPaged(): Flow<PagingData<Movie>> {
         return Pager(config = PagingConfig(pageSize = 20)) {
@@ -66,5 +53,22 @@ class MovieRepositoryImpl @Inject constructor(
 
     override fun getDynamicGenreCountryList(countryId: Int, genreId: Int): Flow<List<Movie>> {
         return fetchMovies { api.getMoviesByCountryAndGenre(countryId, genreId) }
+    }
+}
+
+private inline fun <reified T> fetchMovies(
+    crossinline apiCall: suspend () -> T
+): Flow<List<Movie>> where T : Any {
+    return flow {
+        val response = apiCall.invoke()
+        val moviesDto = extractMoviesFromResponse(response)
+        emit(moviesDto.map(MovieDto::toDomain))
+    }.flowOn(Dispatchers.IO)
+}
+private fun extractMoviesFromResponse(response: Any): List<MovieDto> {
+    return when (response) {
+        is CollectionsResponse -> response.items
+        is Top250Response -> response.films
+        else -> emptyList()
     }
 }
