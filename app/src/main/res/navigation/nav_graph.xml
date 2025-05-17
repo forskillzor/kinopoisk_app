@@ -9,7 +9,12 @@
         android:id="@+id/listPageFragment"
         android:name="com.example.kinopoisk.presentation.listpage.ListPageFragment"
         android:label="fragment_list_page"
-        tools:layout="@layout/fragment_list_page" />
+        tools:layout="@layout/fragment_list_page">
+        <argument
+            android:name="collectonType"
+            app:argType="com.example.kinopoisk.data.model.SectionType"
+            />
+    </fragment>
     <fragment
         android:id="@+id/homepageFragment"
         android:name="com.example.kinopoisk.presentation.homepage.HomepageFragment"
@@ -17,12 +22,6 @@
         tools:layout="@layout/fragment_homepage">
         <action
             android:id="@+id/action_homepageFragment_to_listPageFragment"
-            app:destination="@id/listPageFragment" >
-            <argument
-                android:name="sectionType"
-                app:argType="string"
-                app:nullable="false"
-                android:defaultValue="PREMIERES" />
-        </action>
+            app:destination="@id/listPageFragment" />
     </fragment>
 </navigation>

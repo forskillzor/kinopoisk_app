@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kinopoisk.presentation.listpage.ListPageViewModel
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 class ListPageFragment : Fragment() {
     private lateinit var adapter: MovieGridAdapter
     private val viewModel: ListPageViewModel by viewModels()
+    private val args: ListPageFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

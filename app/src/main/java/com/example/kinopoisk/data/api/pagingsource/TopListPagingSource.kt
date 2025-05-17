@@ -1,7 +1,8 @@
-package com.example.kinopoisk.data.api
+package com.example.kinopoisk.data.api.pagingsource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
+import com.example.kinopoisk.data.api.KinopoiskApi
 import com.example.kinopoisk.data.model.MovieDto
 import com.example.kinopoisk.domain.entities.Movie
 import com.example.kinopoisk.domain.mappers.toDomain

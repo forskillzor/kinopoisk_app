@@ -20,13 +20,22 @@ interface KinopoiskApi {
     suspend fun top(@Query("page") page: Int = 1): Top250Response
 
     @GET("/api/v2.2/films/collections")
-    suspend fun premieres(@Query("type") type: String = "CLOSES_RELEASES"): CollectionsResponse
+    suspend fun premieres(
+        @Query("page") page: Int = 1,
+        @Query("type") type: String = "CLOSES_RELEASES"
+    ): CollectionsResponse
 
     @GET("/api/v2.2/films/collections")
-    suspend fun popular(@Query("type") type: String = "TOP_POPULAR_ALL"): CollectionsResponse
+    suspend fun popular(
+        @Query("page") page: Int = 1,
+        @Query("type") type: String = "TOP_POPULAR_ALL"
+    ): CollectionsResponse
 
     @GET("/api/v2.2/films/collections")
-    suspend fun series(@Query("type") type: String = "POPULAR_SERIES"): CollectionsResponse
+    suspend fun series(
+        @Query("page") page: Int = 1,
+        @Query("type") type: String = "POPULAR_SERIES"
+    ): CollectionsResponse
 
     @GET("/api/v2.2/films")
     suspend fun getMoviesByCountryAndGenre(
