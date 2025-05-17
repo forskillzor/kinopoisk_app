@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kinopoisk.R
 import com.example.kinopoisk.data.model.MovieSection
+import com.example.kinopoisk.data.model.SectionType
 
 class HomeAdapter : RecyclerView.Adapter<HomeAdapter.SectionViewHolder>() {
 
@@ -36,7 +37,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.SectionViewHolder>() {
             recyclerView.adapter = adapter
 
             btnSeeAll.setOnClickListener {
-                HomepageFragmentDirections.actionHomepageFragmentToListPageFragment().let {
+                HomepageFragmentDirections.actionHomepageFragmentToListPageFragment(SectionType.PREMIERES).let {
                     itemView.findNavController().navigate(it)
                 }
             }

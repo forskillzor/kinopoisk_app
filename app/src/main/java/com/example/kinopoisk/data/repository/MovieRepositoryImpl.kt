@@ -6,7 +6,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.kinopoisk.data.api.KinopoiskApi
-import com.example.kinopoisk.data.api.TopListPagingSource
+import com.example.kinopoisk.data.api.pagingsource.TopListPagingSource
 import com.example.kinopoisk.data.local.MovieDao
 import com.example.kinopoisk.data.model.CollectionsResponse
 import com.example.kinopoisk.data.model.FiltersResponse
