@@ -1,5 +1,7 @@
 package com.example.kinopoisk.data.repository
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -22,7 +24,8 @@ import kotlinx.coroutines.flow.flowOn
 
 class MovieRepositoryImpl @Inject constructor(
     private val api: KinopoiskApi,
-    private val movieDao: MovieDao
+    private val movieDao: MovieDao,
+    private val dataStore: DataStore<Preferences>
 ): MovieRepository {
     override fun getTopPaged(): Flow<PagingData<Movie>> {
         return Pager(config = PagingConfig(pageSize = 20)) {
