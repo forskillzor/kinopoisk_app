@@ -16,8 +16,12 @@ interface KinopoiskApi {
     @GET("/api/v2.2/films/filters")
     suspend fun getFilters(): FiltersResponse
 
-    @GET("/api/v2.2/films/top?type=TOP_250_BEST_FILMS")
-    suspend fun top(@Query("page") page: Int = 1): Top250Response
+    // todo check this endpoin changes for top
+    @GET("/api/v2.2/films/collections")
+    suspend fun top(
+        @Query("page") page: Int = 1,
+        @Query("type") type: String = "TOP_250_MOVIES"
+    ): CollectionsResponse
 
     @GET("/api/v2.2/films/collections")
     suspend fun premieres(
@@ -38,7 +42,7 @@ interface KinopoiskApi {
     ): CollectionsResponse
 
     @GET("/api/v2.2/films")
-    suspend fun getMoviesByCountryAndGenre(
+    suspend fun dynamic(
         @Query("countries") countryId: Int,
         @Query("genres") genreId: Int,
         @Query("ratingFrom") ratingFrom: Double = 0.0,

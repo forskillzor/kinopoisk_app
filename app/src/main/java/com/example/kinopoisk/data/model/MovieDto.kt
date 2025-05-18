@@ -1,7 +1,7 @@
 package com.example.kinopoisk.data.model
 
 data class MovieDto(
-    val filmId: Int,
+    val kinopoiskId: Int,
     val nameRu: String?,
     val nameEn: String?,
     val year: String?,

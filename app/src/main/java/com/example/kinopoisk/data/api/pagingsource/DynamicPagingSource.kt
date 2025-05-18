@@ -8,14 +8,16 @@ import com.example.kinopoisk.domain.entities.Movie
 import com.example.kinopoisk.domain.mappers.toDomain
 
 class DynamicPagingSource(
-    private val api: KinopoiskApi
+    private val api: KinopoiskApi,
+    private val countryId: Int,
+    private val genreId: Int
 ): PagingSource<Int, Movie> () {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val page = params.key?: 1
-        val response = api.top(page)
+        val response = api.dynamic(page = page, countryId = countryId, genreId = genreId)
         return LoadResult.Page(
-            data = response.films.map(MovieDto::toDomain),
+            data = response.items.map(MovieDto::toDomain),
             prevKey = if(page == 1) null else page - 1,
             nextKey = page + 1
         )

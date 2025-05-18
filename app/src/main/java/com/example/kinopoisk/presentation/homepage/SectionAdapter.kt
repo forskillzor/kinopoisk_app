@@ -12,7 +12,8 @@ import com.example.kinopoisk.R
 import com.example.kinopoisk.data.model.MovieSection
 import com.example.kinopoisk.data.model.SectionType
 
-class HomeAdapter : RecyclerView.Adapter<HomeAdapter.SectionViewHolder>() {
+class SectionAdapter(
+) : RecyclerView.Adapter<SectionAdapter.SectionViewHolder>() {
 
     private var sections = listOf<MovieSection>()
 
