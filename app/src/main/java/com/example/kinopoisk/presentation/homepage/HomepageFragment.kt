@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HomepageFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
-    private lateinit var homeAdapter: HomeAdapter
+    private lateinit var sectionAdapter: SectionAdapter
     private lateinit var binding: FragmentHomepageBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +30,10 @@ class HomepageFragment : Fragment() {
     ): View? {
         binding = FragmentHomepageBinding.inflate(inflater, container, false)
 
-        homeAdapter = HomeAdapter()
+        sectionAdapter = SectionAdapter()
         binding.sectionRecycler.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = homeAdapter
+            adapter = sectionAdapter
         }
 
 
@@ -54,7 +54,7 @@ class HomepageFragment : Fragment() {
     }
     fun setupSections(listSections: List<MovieSection>) {
         binding.progressBar.visibility = View.GONE
-        homeAdapter.submitList(listSections)
+        sectionAdapter.submitList(listSections)
 
     }
     fun showError(e: Throwable) {
