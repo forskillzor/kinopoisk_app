@@ -6,7 +6,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.kinopoisk.data.model.MovieDto
 import com.example.kinopoisk.databinding.ItemMovieBinding
 import com.example.kinopoisk.domain.entities.Movie
 

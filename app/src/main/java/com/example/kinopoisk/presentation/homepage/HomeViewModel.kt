@@ -41,7 +41,7 @@ class HomeViewModel @Inject constructor(
             listOf(
                 MovieSection("Премьеры", premieres, SectionType.PREMIERES),
                 MovieSection("Популярноое", popular, SectionType.POPULAR),
-                MovieSection("Топ-250", top250, SectionType.TOP_250),
+                MovieSection("Топ-250 Фильмов", top250, SectionType.TOP_250),
                 MovieSection("Сериалы", series, SectionType.SERIES),
                 MovieSection("Подборка", dynamics, SectionType.DYNAMIC_GENRE_COUNTRY)
             )

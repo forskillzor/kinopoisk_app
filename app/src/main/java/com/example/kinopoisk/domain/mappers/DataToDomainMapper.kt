@@ -7,7 +7,7 @@ import com.example.kinopoisk.domain.entities.Movie
 
 fun MovieDto.toDomain(): Movie {
     return Movie(
-        id = filmId,
+        id = kinopoiskId,
         title = nameRu?: nameEn?: "",
         year = year?: "",
         filmLength = filmLength?: "",

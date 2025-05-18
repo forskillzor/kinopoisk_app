@@ -11,7 +11,11 @@ interface MovieRepository {
     fun getPremieres(): Flow<List<Movie>>
     fun getPopular(): Flow<List<Movie>>
     fun getTop(): Flow<List<Movie>>
-    fun getTopPaged(): Flow<PagingData<Movie>>
     fun getSeries(): Flow<List<Movie>>
-    fun getDynamicGenreCountryList(countryId: Int, genreId: Int): Flow<List<Movie>>
+    fun getDynamic(countryId: Int, genreId: Int): Flow<List<Movie>>
+    fun getPremieresPaged(): Flow<PagingData<Movie>>
+    fun getPopularPaged(): Flow<PagingData<Movie>>
+    fun getTopPaged(): Flow<PagingData<Movie>>
+    fun getSeriesPaged(): Flow<PagingData<Movie>>
+    fun getDynamicGenreCountryListPaged(countryId: Int, genreId: Int): Flow<PagingData<Movie>>
 }

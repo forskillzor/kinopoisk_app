@@ -14,7 +14,7 @@ class TopListPagingSource(
         val page = params.key?: 1
         val response = api.top(page)
         return LoadResult.Page(
-            data = response.films.map(MovieDto::toDomain),
+            data = response.items.map(MovieDto::toDomain),
             prevKey = if(page == 1) null else page - 1,
             nextKey = page + 1
         )
