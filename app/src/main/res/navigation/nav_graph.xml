@@ -11,7 +11,7 @@
         android:label="fragment_list_page"
         tools:layout="@layout/fragment_list_page">
         <argument
-            android:name="collectonType"
+            android:name="collectionType"
             app:argType="com.example.kinopoisk.data.model.SectionType"
             />
     </fragment>

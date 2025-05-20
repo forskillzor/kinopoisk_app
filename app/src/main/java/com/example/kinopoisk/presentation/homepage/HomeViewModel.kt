@@ -9,6 +9,7 @@ import com.example.kinopoisk.domain.usecases.GetPopularUseCase
 import com.example.kinopoisk.domain.usecases.GetPremieresUseCase
 import com.example.kinopoisk.domain.usecases.GetSeriesUseCase
 import com.example.kinopoisk.domain.usecases.GetTopListUseCase
+import com.example.kinopoisk.domain.usecases.RefreshCountryGenreSettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
@@ -24,7 +25,8 @@ class HomeViewModel @Inject constructor(
     getPopularUseCase: GetPopularUseCase,
     getTopListUseCase: GetTopListUseCase,
     getSeriesUseCase: GetSeriesUseCase,
-    getDynamicGenreCountryUseCase: GetDynamicGenreCountryUseCase
+    getDynamicGenreCountryUseCase: GetDynamicGenreCountryUseCase,
+    private val refreshCountyAndGenreSettings: RefreshCountryGenreSettingsUseCase
 ) : ViewModel() {
 
     val uiState: StateFlow<HomeUiState> = combine(
@@ -43,7 +45,7 @@ class HomeViewModel @Inject constructor(
                 MovieSection("Популярноое", popular, SectionType.POPULAR),
                 MovieSection("Топ-250 Фильмов", top250, SectionType.TOP_250),
                 MovieSection("Сериалы", series, SectionType.SERIES),
-                MovieSection("Подборка", dynamics, SectionType.DYNAMIC_GENRE_COUNTRY)
+                MovieSection("Подборка", dynamics, SectionType.DYNAMIC_GENRE_COUNTRY).apply { title = getName() }
             )
         }
         .map<List<MovieSection>, HomeUiState> { sections -> HomeUiState.Success(sections) }
@@ -53,5 +55,7 @@ class HomeViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = HomeUiState.Loading
         )
-
+    fun refreshCountryGenre() {
+        refreshCountyAndGenreSettings()
+    }
 }

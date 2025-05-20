@@ -38,7 +38,8 @@ class SectionAdapter(
             recyclerView.adapter = adapter
 
             btnSeeAll.setOnClickListener {
-                HomepageFragmentDirections.actionHomepageFragmentToListPageFragment(SectionType.PREMIERES).let {
+                val section = sections[position]
+                HomepageFragmentDirections.actionHomepageFragmentToListPageFragment(section.type).let {
                     itemView.findNavController().navigate(it)
                 }
             }
