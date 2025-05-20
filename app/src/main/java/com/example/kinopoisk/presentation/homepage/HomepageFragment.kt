@@ -62,4 +62,9 @@ class HomepageFragment : Fragment() {
         Toast.makeText(context, "Message: ${e.message}", Toast.LENGTH_SHORT).show()
         Log.d("TAGG", "message: ${e.message}")
     }
+
+    override fun onStart() {
+        super.onStart()
+        viewModel.refreshCountryGenre()
+    }
 }

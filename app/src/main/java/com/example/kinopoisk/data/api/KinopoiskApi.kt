@@ -16,7 +16,6 @@ interface KinopoiskApi {
     @GET("/api/v2.2/films/filters")
     suspend fun getFilters(): FiltersResponse
 
-    // todo check this endpoin changes for top
     @GET("/api/v2.2/films/collections")
     suspend fun top(
         @Query("page") page: Int = 1,

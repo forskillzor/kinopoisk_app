@@ -24,6 +24,7 @@ class ListPageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel.loadMovies(args.collectionType)
     }
 
     override fun onCreateView(

@@ -1,5 +1,6 @@
 package com.example.kinopoisk.data.repository
 
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.paging.Pager
@@ -19,18 +20,27 @@ import com.example.kinopoisk.data.model.Top250Response
 import com.example.kinopoisk.domain.entities.Movie
 import com.example.kinopoisk.domain.mappers.toDomain
 import com.example.kinopoisk.domain.repository.MovieRepository
+import com.example.kinopoisk.domain.repository.SettingsRepository
 import jakarta.inject.Inject
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flattenMerge
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 
 class MovieRepositoryImpl @Inject constructor(
     private val api: KinopoiskApi,
     private val movieDao: MovieDao,
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
+    private val settings: SettingsRepository
 ) : MovieRepository {
+    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO)
 
     override fun getFilters(): Flow<FiltersResponse> = flow {
         val response = api.getFilters()
@@ -41,8 +51,11 @@ class MovieRepositoryImpl @Inject constructor(
     override fun getPopular(): Flow<List<Movie>> = fetchMovies { api.popular() }
     override fun getTop(): Flow<List<Movie>> = fetchMovies { api.top() }
     override fun getSeries(): Flow<List<Movie>> = fetchMovies { api.series() }
-    override fun getDynamic(countryId: Int, genreId: Int): Flow<List<Movie>> =
+
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun getDynamic(): Flow<List<Movie>> = settings.countryGenrePair.map { (countryId, genreId) ->
         fetchMovies { api.dynamic(countryId, genreId) }
+    }.flattenMerge()
 
     override fun getTopPaged(): Flow<PagingData<Movie>> =
         Pager(config = PagingConfig(pageSize = 20)) {
@@ -64,13 +77,22 @@ class MovieRepositoryImpl @Inject constructor(
             SeriesPagingSource(api)
         }.flow
 
-    override fun getDynamicGenreCountryListPaged(
-        countryId: Int,
-        genreId: Int
-    ): Flow<PagingData<Movie>> =
-        Pager(config = PagingConfig(pageSize = 20)) {
-            DynamicPagingSource(api, countryId, genreId)
-        }.flow
+    @OptIn(ExperimentalCoroutinesApi::class)
+    override fun getDynamicGenreCountryListPaged(): Flow<PagingData<Movie>> =
+        settings.countryGenrePair.map { (countryId, genreId) ->
+            Pager(config = PagingConfig(pageSize = 20)) {
+                DynamicPagingSource(api, countryId, genreId)
+            }.flow
+        }.flattenMerge()
+
+    override fun refreshRandomCountryAndGenre() {
+        val newCountryId = Random.nextInt(1, 5)
+        val newGenreId = Random.nextInt(1, 5)
+        Log.d("TAAG", "set to datastore country: $newCountryId, genre: $newGenreId()")
+        scope.launch(Dispatchers.IO) {
+            settings.updateCountryGenre(newCountryId, newGenreId)
+        }
+    }
 }
 
 private inline fun <reified T> fetchMovies(
@@ -90,3 +112,4 @@ private fun extractMoviesFromResponse(response: Any): List<MovieDto> {
         else -> emptyList()
     }
 }
+
