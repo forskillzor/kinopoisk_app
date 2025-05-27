@@ -24,17 +24,21 @@
         <TextView
             android:id="@+id/rating_badge"
             android:layout_width="wrap_content"
-            android:layout_height="24dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="top|end"
             android:background="@drawable/badge_rating"
             android:gravity="center"
             android:layout_margin="8dp"
-            android:paddingStart="6dp"
-            android:paddingEnd="6dp"
-            android:text="8.9"
+            tools:text="8.9"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
             android:textStyle="bold" />
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_margin="8dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/eye_icon"/>
 
     </FrameLayout>
 

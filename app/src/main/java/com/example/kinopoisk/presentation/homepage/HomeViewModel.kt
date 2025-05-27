@@ -1,7 +1,9 @@
 package com.example.kinopoisk.presentation.homepage
 
+import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.kinopoisk.R
 import com.example.kinopoisk.data.model.MovieSection
 import com.example.kinopoisk.data.model.SectionType
 import com.example.kinopoisk.domain.usecases.GetDynamicGenreCountryUseCase
@@ -11,6 +13,7 @@ import com.example.kinopoisk.domain.usecases.GetSeriesUseCase
 import com.example.kinopoisk.domain.usecases.GetTopListUseCase
 import com.example.kinopoisk.domain.usecases.RefreshCountryGenreSettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -21,6 +24,7 @@ import kotlinx.coroutines.flow.stateIn
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
+    private val application: Application,
     getPremieresUseCase: GetPremieresUseCase,
     getPopularUseCase: GetPopularUseCase,
     getTopListUseCase: GetTopListUseCase,
@@ -30,7 +34,7 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState: StateFlow<HomeUiState> = combine(
-            getPremieresUseCase(),
+            getPremieresUseCase(), // todo add .cachedIn(viewModelScope)
             getPopularUseCase(),
             getTopListUseCase(),
             getSeriesUseCase(),
@@ -41,11 +45,32 @@ class HomeViewModel @Inject constructor(
             series,
             dynamics ->
             listOf(
-                MovieSection("Премьеры", premieres, SectionType.PREMIERES),
-                MovieSection("Популярноое", popular, SectionType.POPULAR),
-                MovieSection("Топ-250 Фильмов", top250, SectionType.TOP_250),
-                MovieSection("Сериалы", series, SectionType.SERIES),
-                MovieSection("Подборка", dynamics, SectionType.DYNAMIC_GENRE_COUNTRY).apply { title = getName() }
+                // todo move strings to  resource strings
+                MovieSection(
+                    application.getString(R.string.section_premieres_title),
+                    premieres,
+                    SectionType.PREMIERES
+                ),
+                MovieSection(
+                    application.getString(R.string.section_popular_title),
+                    popular,
+                    SectionType.POPULAR
+                ),
+                MovieSection(
+                    application.getString(R.string.section_top250_title),
+                    top250,
+                    SectionType.TOP_250
+                ),
+                MovieSection(
+                    application.getString(R.string.section_series_title),
+                    series,
+                    SectionType.SERIES
+                ),
+                MovieSection(
+                    application.getString(R.string.section_dynamic_title),
+                    dynamics,
+                    SectionType.DYNAMIC_GENRE_COUNTRY
+                ).apply { title = getName() }
             )
         }
         .map<List<MovieSection>, HomeUiState> { sections -> HomeUiState.Success(sections) }

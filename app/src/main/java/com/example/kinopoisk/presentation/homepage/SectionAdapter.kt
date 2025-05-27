@@ -30,7 +30,7 @@ class SectionAdapter(
 
         fun bind(section: MovieSection) {
             title.text = section.title
-            val adapter = HorizontalMovieListAdapter().apply {
+            val adapter = HorizontalMovieListAdapter({}).apply {
                 submitList(section.movies.take(20))
             }
             recyclerView.layoutManager =
