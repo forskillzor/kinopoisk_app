@@ -5,10 +5,16 @@ import com.example.kinopoisk.domain.repository.MovieRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetPremieresUseCase @Inject constructor(
+interface GetPremieresUseCase {
+
+    operator fun invoke(): Flow<List<Movie>>
+
+}
+
+class GetPremieresUseCaseImpl @Inject constructor(
     private val repository: MovieRepository
-) {
-    operator fun invoke(): Flow<List<Movie>> {
+): GetPremieresUseCase {
+    override operator fun invoke(): Flow<List<Movie>> {
         return repository.getPremieres()
     }
 }

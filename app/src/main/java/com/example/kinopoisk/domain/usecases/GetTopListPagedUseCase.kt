@@ -6,8 +6,15 @@ import com.example.kinopoisk.domain.repository.MovieRepository
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
+interface GetTopListPagedUseCase {
 
-class GetTopListPagedUseCase @Inject constructor(val movieRepository: MovieRepository) {
-    operator fun invoke(): Flow<PagingData<Movie>> = movieRepository.getTopPaged()
+    operator fun invoke(): Flow<PagingData<Movie>>
+
+}
+
+class GetTopListPagedUseCaseImpl @Inject constructor(
+    val movieRepository: MovieRepository
+): GetTopListPagedUseCase {
+    override operator fun invoke(): Flow<PagingData<Movie>> = movieRepository.getTopPaged()
 
 }

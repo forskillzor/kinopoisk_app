@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kinopoisk.R
 import com.example.kinopoisk.data.model.MovieSection
-import com.example.kinopoisk.data.model.SectionType
 
 class SectionAdapter(
 ) : RecyclerView.Adapter<SectionAdapter.SectionViewHolder>() {
@@ -30,7 +29,14 @@ class SectionAdapter(
 
         fun bind(section: MovieSection) {
             title.text = section.title
-            val adapter = HorizontalMovieListAdapter({}).apply {
+            val adapter = HorizontalMovieListAdapter(
+                {
+                    HomepageFragmentDirections.actionHomepageFragmentToListPageFragment(section.type)
+                        .let {
+                            itemView.findNavController().navigate(it)
+                        }
+                }
+            ).apply {
                 submitList(section.movies.take(20))
             }
             recyclerView.layoutManager =
@@ -39,9 +45,10 @@ class SectionAdapter(
 
             btnSeeAll.setOnClickListener {
                 val section = sections[position]
-                HomepageFragmentDirections.actionHomepageFragmentToListPageFragment(section.type).let {
-                    itemView.findNavController().navigate(it)
-                }
+                HomepageFragmentDirections.actionHomepageFragmentToListPageFragment(section.type)
+                    .let {
+                        itemView.findNavController().navigate(it)
+                    }
             }
         }
     }

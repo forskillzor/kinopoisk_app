@@ -13,7 +13,6 @@ import com.example.kinopoisk.domain.usecases.GetSeriesUseCase
 import com.example.kinopoisk.domain.usecases.GetTopListUseCase
 import com.example.kinopoisk.domain.usecases.RefreshCountryGenreSettingsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -34,18 +33,13 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     val uiState: StateFlow<HomeUiState> = combine(
-            getPremieresUseCase(), // todo add .cachedIn(viewModelScope)
+            getPremieresUseCase(),
             getPopularUseCase(),
             getTopListUseCase(),
             getSeriesUseCase(),
             getDynamicGenreCountryUseCase()
-        ) { premieres,
-            popular,
-            top250,
-            series,
-            dynamics ->
+        ) { premieres, popular, top250, series, dynamics ->
             listOf(
-                // todo move strings to  resource strings
                 MovieSection(
                     application.getString(R.string.section_premieres_title),
                     premieres,
