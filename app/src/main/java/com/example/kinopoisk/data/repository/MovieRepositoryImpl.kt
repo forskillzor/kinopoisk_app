@@ -93,6 +93,13 @@ class MovieRepositoryImpl @Inject constructor(
             settings.updateCountryGenre(newCountryId, newGenreId)
         }
     }
+
+    override fun getMovieByMovieId(id: Int): Flow<Movie> {
+        return flow {
+            val movieDto = api.getFilmById(id)
+            emit(movieDto.toDomain())
+        }.flowOn(Dispatchers.IO)
+    }
 }
 
 private inline fun <reified T> fetchMovies(

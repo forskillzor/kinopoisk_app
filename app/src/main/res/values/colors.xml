@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="detail_movie_cover_text">#B5B5C9</color>
+    <color name="movie_item_genre">#838390</color>
+    <color name="primary">#3D3BFF</color>
 </resources>

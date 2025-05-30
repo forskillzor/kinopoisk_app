@@ -2,6 +2,7 @@ package com.example.kinopoisk.data.model
 
 import com.example.kinopoisk.domain.entities.Movie
 
+// todo move this to presentation
 data class MovieSection(
     var title: String,
     val movies: List<Movie>,

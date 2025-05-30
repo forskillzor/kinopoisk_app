@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".presentation.detail.MovieDetailFragment">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:text="@string/hello_blank_fragment">
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/cover"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/black"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/tools_cover" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/cover_gradient" />
+
+                <LinearLayout
+                    android:layout_width="250dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/logo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="50dp"
+                        android:scaleType="fitCenter"
+                        android:layout_marginBottom="16dp"
+                        android:layout_gravity="center"
+                        tools:src="@drawable/tools_logo" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/detail_movie_cover_text"
+                            android:fontFamily="@font/graphik_bold"
+                            android:layout_marginEnd="8dp"
+                            tools:text="8.9" />
+
+                        <TextView
+                            android:id="@+id/film_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/graphik_regular"
+                            android:textColor="@color/detail_movie_cover_text"
+                            tools:text="Матрица" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/release_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/detail_movie_cover_text"
+                            android:layout_marginEnd="8dp"
+                            tools:text="1999" />
+
+                        <TextView
+                            android:id="@+id/genre"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/detail_movie_cover_text"
+                            tools:text="триллер, боевик" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/country"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/detail_movie_cover_text"
+                            android:layout_marginEnd="8dp"
+                            tools:text="США, " />
+
+                        <TextView
+                            android:id="@+id/film_length"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/detail_movie_cover_text"
+                            android:layout_marginEnd="8dp"
+                            tools:text="1 ч 33 мин, " />
+
+                        <TextView
+                            android:id="@+id/censor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/detail_movie_cover_text"
+                            tools:text="16+" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/favorite"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_margin="16dp"
+                            android:scaleType="center"
+                            android:src="@drawable/heart" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/bookmark"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_margin="16dp"
+                            android:scaleType="center"
+                            android:src="@drawable/bookmark" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/seen"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_margin="16dp"
+                            android:scaleType="center"
+                            android:src="@drawable/notsee" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/share"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_margin="16dp"
+                            android:scaleType="center"
+                            android:src="@drawable/share" />
+
+                        <com.google.android.material.imageview.ShapeableImageView
+                            android:id="@+id/more_button"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_margin="16dp"
+                            android:scaleType="center"
+                            android:src="@drawable/expand" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="32dp">
+
+                <TextView
+                    android:id="@+id/short_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/graphik_bold"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="16dp"
+                    tools:text="Жизнь Томаса Андерсона разделена на две части" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    tools:text="Хакер Нео узнает, что его мир — виртуальный. Выдающийся экшен, доказавший, что зрелищное кино может быть умным" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="32dp"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:fontFamily="@font/graphik_bold"
+                        android:textColor="@color/black"
+                        android:layout_weight="1"
+                        android:text="В фильме снимались" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/primary"
+                        tools:text="27 >"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/primary"
+        />
+
+</FrameLayout>

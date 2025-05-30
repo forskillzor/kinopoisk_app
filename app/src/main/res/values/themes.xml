@@ -5,7 +5,9 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.Kinopoisk" parent="Base.Theme.Kinopoisk" />
+    <style name="Theme.Kinopoisk" parent="Base.Theme.Kinopoisk">
+        <item name="android:fontFamily">@font/graphik_regular</item>
+    </style>
 
     <style name="customRoundedImageView" parent="">
         <item name="cornerFamily">rounded</item>

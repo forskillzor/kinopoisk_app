@@ -8,9 +8,9 @@ import com.example.kinopoisk.domain.entities.Movie
 fun MovieDto.toDomain(): Movie {
     return Movie(
         id = kinopoiskId,
-        title = nameRu?: nameEn?: "",
-        year = year?: "",
-        filmLength = filmLength?: "",
+        name = nameRu?: nameEn?: "",
+        year = year?: 0,
+        filmLength = filmLength?: 0,
         description = description?: "",
         countries = countries
             .map{country -> Country(country = country.country, id = country.id)},
@@ -18,6 +18,10 @@ fun MovieDto.toDomain(): Movie {
             .map{genre -> Genre(genre = genre.genre, id = genre.id)},
         rating = rating?: ratingKinopoisk?: ratingImdb,
         posterUrl = posterUrl,
-        posterUrlPreview = posterUrlPreview
+        posterUrlPreview = posterUrlPreview,
+        coverUrl = coverUrl?: "",
+        logoUrl = logoUrl?: "",
+        shortDescription = shortDescription,
+        ratingAgeLimits = ratingAgeLimits
     )
 }

@@ -2,6 +2,7 @@ package com.example.kinopoisk.domain.repository
 
 import androidx.paging.PagingData
 import com.example.kinopoisk.data.model.FiltersResponse
+import com.example.kinopoisk.data.model.MovieDto
 import com.example.kinopoisk.domain.entities.Movie
 import kotlinx.coroutines.flow.Flow
 
@@ -18,4 +19,5 @@ interface MovieRepository {
     fun getSeriesPaged(): Flow<PagingData<Movie>>
     fun getDynamicGenreCountryListPaged(): Flow<PagingData<Movie>>
     fun refreshRandomCountryAndGenre()
+    fun getMovieByMovieId(id: Int): Flow<Movie>
 }

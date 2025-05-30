@@ -35,6 +35,12 @@ class SectionAdapter(
                         .let {
                             itemView.findNavController().navigate(it)
                         }
+                },
+                { movieId ->
+                    HomepageFragmentDirections.actionHomepageFragmentToMovieDetailFragment(movieId)
+                        .let {
+                            itemView.findNavController().navigate(it)
+                        }
                 }
             ).apply {
                 submitList(section.movies.take(20))

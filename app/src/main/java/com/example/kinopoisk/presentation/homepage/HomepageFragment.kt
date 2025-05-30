@@ -60,7 +60,7 @@ class HomepageFragment : Fragment() {
     fun showError(e: Throwable) {
         binding.progressBar.visibility = View.GONE
         Toast.makeText(context, "Message: ${e.message}", Toast.LENGTH_SHORT).show()
-        Log.d("TAGG", "message: ${e.message}")
+        Log.d("TAGRTRT", "message: ${e.message}")
     }
 
     override fun onStart() {

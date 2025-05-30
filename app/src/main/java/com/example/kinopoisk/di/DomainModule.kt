@@ -4,6 +4,8 @@ import com.example.kinopoisk.domain.usecases.GetDynamicGenreCountryPagedUseCase
 import com.example.kinopoisk.domain.usecases.GetDynamicGenreCountryPagedUseCaseImpl
 import com.example.kinopoisk.domain.usecases.GetDynamicGenreCountryUseCase
 import com.example.kinopoisk.domain.usecases.GetDynamicGenreCountryUseCaseImpl
+import com.example.kinopoisk.domain.usecases.GetMovieDetails
+import com.example.kinopoisk.domain.usecases.GetMovieDetailsByMovieIdImpl
 import com.example.kinopoisk.domain.usecases.GetPopularPagedUseCase
 import com.example.kinopoisk.domain.usecases.GetPopularPagedUseCaseImpl
 import com.example.kinopoisk.domain.usecases.GetPopularUseCase
@@ -97,4 +99,10 @@ abstract class DomainModule {
     abstract fun bindRefreshCountryGenreSettingsUseCase(
         impl: RefreshCountryGenreSettingsUseCaseImpl
     ): RefreshCountryGenreSettingsUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindGetMovieByMovieIdUseCase(
+        impl: GetMovieDetailsByMovieIdImpl
+    ): GetMovieDetails
 }

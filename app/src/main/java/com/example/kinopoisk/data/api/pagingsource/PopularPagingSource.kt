@@ -27,6 +27,4 @@ class PopularPagingSource(
                 ?: state.closestPageToPosition(anchor)?.nextKey?.minus(1)
         }
     }
-
-
 }

@@ -6,16 +6,6 @@
     app:startDestination="@id/homepageFragment">
 
     <fragment
-        android:id="@+id/listPageFragment"
-        android:name="com.example.kinopoisk.presentation.listpage.ListPageFragment"
-        android:label="fragment_list_page"
-        tools:layout="@layout/fragment_list_page">
-        <argument
-            android:name="collectionType"
-            app:argType="com.example.kinopoisk.data.model.SectionType"
-            />
-    </fragment>
-    <fragment
         android:id="@+id/homepageFragment"
         android:name="com.example.kinopoisk.presentation.homepage.HomepageFragment"
         android:label="fragment_homepage"
@@ -23,5 +13,30 @@
         <action
             android:id="@+id/action_homepageFragment_to_listPageFragment"
             app:destination="@id/listPageFragment" />
+        <action
+            android:id="@+id/action_homepageFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listPageFragment"
+        android:name="com.example.kinopoisk.presentation.listpage.ListPageFragment"
+        android:label="fragment_list_page"
+        tools:layout="@layout/fragment_list_page">
+        <argument
+            android:name= "collectionType"
+            app:argType="com.example.kinopoisk.data.model.SectionType"
+            />
+        <action
+            android:id="@+id/action_listPageFragment_to_movieDetailFragment"
+            app:destination="@id/movieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.example.kinopoisk.presentation.detail.MovieDetailFragment"
+        android:label="fragment_detail_movie"
+        tools:layout="@layout/fragment_detail_movie">
+        <argument
+            android:name= "movieId"
+            app:argType="integer"/>
     </fragment>
 </navigation>

@@ -29,7 +29,7 @@ class HomeViewModel @Inject constructor(
     getTopListUseCase: GetTopListUseCase,
     getSeriesUseCase: GetSeriesUseCase,
     getDynamicGenreCountryUseCase: GetDynamicGenreCountryUseCase,
-    private val refreshCountyAndGenreSettings: RefreshCountryGenreSettingsUseCase
+    private val refreshCountyAndGenreSettingsUseCase: RefreshCountryGenreSettingsUseCase
 ) : ViewModel() {
 
     val uiState: StateFlow<HomeUiState> = combine(
@@ -75,6 +75,6 @@ class HomeViewModel @Inject constructor(
             initialValue = HomeUiState.Loading
         )
     fun refreshCountryGenre() {
-        refreshCountyAndGenreSettings()
+        refreshCountyAndGenreSettingsUseCase()
     }
 }

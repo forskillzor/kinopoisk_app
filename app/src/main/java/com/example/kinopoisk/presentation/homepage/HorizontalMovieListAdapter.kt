@@ -1,7 +1,6 @@
 package com.example.kinopoisk.presentation.homepage
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,8 @@ import com.example.kinopoisk.domain.entities.Movie
 import com.example.kinopoisk.presentation.homepage.HorizontalMovieListAdapter.HorizontalListItem.MovieItem
 import com.example.kinopoisk.presentation.homepage.HorizontalMovieListAdapter.HorizontalListItem.ShowAll
 class HorizontalMovieListAdapter(
-    private val onShowAllClick: () -> Unit
+    private val onShowAllClick: () -> Unit,
+    private val onMovieClick:  (id: Int) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     sealed class HorizontalListItem {
@@ -43,7 +43,7 @@ class HorizontalMovieListAdapter(
         return when(viewType) {
             0 -> {
                 val binding = ItemMovieBinding.inflate(layoutInflater, parent, false)
-                MovieViewHolder(binding)
+                MovieViewHolder(binding, onMovieClick)
             }
             1 -> {
                 val binding = ItemShowAllBinding.inflate(layoutInflater, parent, false)
@@ -62,11 +62,17 @@ class HorizontalMovieListAdapter(
 
     override fun getItemCount(): Int = items.size
 
-    inner class MovieViewHolder(private val binding: ItemMovieBinding) :
+    inner class MovieViewHolder(
+        private val binding: ItemMovieBinding,
+        private val onClick: (id: Int) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: Movie) {
-            binding.filmName.text = movie.title
+            binding.root.setOnClickListener {
+                onClick(movie.id)
+            }
+            binding.filmName.text = movie.name
             Glide.with(binding.poster)
                 .load(movie.posterUrlPreview)
                 .into(binding.poster)

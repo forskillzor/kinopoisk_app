@@ -3,13 +3,14 @@ package com.example.kinopoisk.data.api
 import com.example.kinopoisk.BuildConfig
 import com.example.kinopoisk.data.model.CollectionsResponse
 import com.example.kinopoisk.data.model.FiltersResponse
-import com.example.kinopoisk.data.model.Top250Response
+import com.example.kinopoisk.data.model.MovieDto
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface KinopoiskApi {
@@ -49,6 +50,10 @@ interface KinopoiskApi {
         @Query("page") page: Int = 1
     ): CollectionsResponse
 
+    @GET("/api/v2.2/films/{id}")
+    suspend fun getFilmById(
+        @Path("id") id: Int
+    ): MovieDto
 
 
     companion object {

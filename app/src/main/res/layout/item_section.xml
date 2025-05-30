@@ -29,6 +29,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:text="@string/btn_more_text"
+            android:textColor="@color/primary"
             tools:text="Все" />
     </RelativeLayout>
     
