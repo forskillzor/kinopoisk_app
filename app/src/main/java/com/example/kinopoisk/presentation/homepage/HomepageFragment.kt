@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.kinopoisk.data.model.MovieSection
+import com.example.kinopoisk.domain.entities.MovieSection
 import com.example.kinopoisk.databinding.FragmentHomepageBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch

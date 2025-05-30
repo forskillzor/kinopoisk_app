@@ -24,7 +24,7 @@
         tools:layout="@layout/fragment_list_page">
         <argument
             android:name= "collectionType"
-            app:argType="com.example.kinopoisk.data.model.SectionType"
+            app:argType="com.example.kinopoisk.domain.entities.SectionType"
             />
         <action
             android:id="@+id/action_listPageFragment_to_movieDetailFragment"

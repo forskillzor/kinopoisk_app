@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kinopoisk.R
-import com.example.kinopoisk.data.model.MovieSection
-import com.example.kinopoisk.data.model.SectionType
+import com.example.kinopoisk.domain.entities.MovieSection
+import com.example.kinopoisk.domain.entities.SectionType
 import com.example.kinopoisk.domain.usecases.GetDynamicGenreCountryUseCase
 import com.example.kinopoisk.domain.usecases.GetPopularUseCase
 import com.example.kinopoisk.domain.usecases.GetPremieresUseCase

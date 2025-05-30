@@ -1,6 +1,4 @@
-package com.example.kinopoisk.data.model
-
-import com.example.kinopoisk.domain.entities.Movie
+package com.example.kinopoisk.domain.entities
 
 // todo move this to presentation
 data class MovieSection(

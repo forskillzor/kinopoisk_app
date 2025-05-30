@@ -9,7 +9,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kinopoisk.R
-import com.example.kinopoisk.data.model.MovieSection
+import com.example.kinopoisk.domain.entities.MovieSection
 
 class SectionAdapter(
 ) : RecyclerView.Adapter<SectionAdapter.SectionViewHolder>() {

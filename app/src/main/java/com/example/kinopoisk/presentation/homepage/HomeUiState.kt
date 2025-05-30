@@ -1,6 +1,6 @@
 package com.example.kinopoisk.presentation.homepage
 
-import com.example.kinopoisk.data.model.MovieSection
+import com.example.kinopoisk.domain.entities.MovieSection
 
 sealed interface HomeUiState {
     data object Loading: HomeUiState
