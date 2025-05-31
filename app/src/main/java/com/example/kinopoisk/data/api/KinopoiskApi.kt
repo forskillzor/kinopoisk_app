@@ -56,6 +56,11 @@ interface KinopoiskApi {
         @Path("id") id: Int
     ): MovieDto
 
+    @GET("/api/v2.2/films/{id}/similars")
+    suspend fun getSimilarMovies(
+        @Path("id") id: Int
+    ): CollectionsResponse
+
     @GET("/api/v1/staff")
     suspend fun getStaffByMovieId(
         @Query("filmId") id: Int

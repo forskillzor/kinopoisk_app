@@ -56,7 +56,7 @@ class MovieGridAdapter(
             }
             binding.filmName.text = movie.name
             binding.ratingBadge.text = movie.rating
-            binding.genre.text = movie.genres[0].genre
+            binding.genre.text = movie.genres?.get(0)?.genre
 
             Glide.with(binding.poster)
                 .load(movie.posterUrlPreview)

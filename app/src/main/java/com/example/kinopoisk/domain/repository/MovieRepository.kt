@@ -16,6 +16,7 @@ interface MovieRepository {
     fun getTop(): Flow<List<Movie>>
     fun getSeries(): Flow<List<Movie>>
     fun getDynamic(): Flow<List<Movie>>
+    fun getSimilarMovies(id: Int): Flow<List<Movie>>
 
     //  movies paging data
     fun getPremieresPaged(): Flow<PagingData<Movie>>

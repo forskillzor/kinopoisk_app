@@ -54,9 +54,13 @@ class MovieRepositoryImpl @Inject constructor(
     override fun getSeries(): Flow<List<Movie>> = fetchMovies { api.series() }
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override fun getDynamic(): Flow<List<Movie>> = settings.countryGenrePair.map { (countryId, genreId) ->
-        fetchMovies { api.dynamic(countryId, genreId) }
-    }.flattenMerge()
+    override fun getDynamic(): Flow<List<Movie>> =
+        settings.countryGenrePair.map { (countryId, genreId) ->
+            fetchMovies { api.dynamic(countryId, genreId) }
+        }.flattenMerge()
+
+    override fun getSimilarMovies(id: Int): Flow<List<Movie>> =
+        fetchMovies { api.getSimilarMovies(id) }
 
     override fun getTopPaged(): Flow<PagingData<Movie>> =
         Pager(config = PagingConfig(pageSize = 20)) {
@@ -104,7 +108,7 @@ class MovieRepositoryImpl @Inject constructor(
 
     override fun getStaffByMovieId(id: Int): Flow<List<Staff>> {
         return flow {
-            val staffList = api.getStaffByMovieId(id).map { item -> item.toDomain()}
+            val staffList = api.getStaffByMovieId(id).map { item -> item.toDomain() }
             emit(staffList)
         }.flowOn(Dispatchers.IO)
     }
@@ -115,8 +119,10 @@ private inline fun <reified T> fetchMovies(
 ): Flow<List<Movie>> where T : Any {
     return flow {
         val response = apiCall.invoke()
-        val movieDao = extractMoviesFromResponse(response)
-        emit(movieDao.map(MovieDto::toDomain))
+        val movieDaoList = extractMoviesFromResponse(response)
+        if (movieDaoList.isNotEmpty()) {
+            emit(movieDaoList.map(MovieDto::toDomain))
+        }
     }.flowOn(Dispatchers.IO)
 }
 

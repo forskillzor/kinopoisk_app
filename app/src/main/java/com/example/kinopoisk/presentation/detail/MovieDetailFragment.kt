@@ -1,5 +1,6 @@
 package com.example.kinopoisk.presentation.detail
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -11,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kinopoisk.databinding.FragmentDetailMovieBinding
@@ -18,6 +20,7 @@ import com.example.kinopoisk.domain.entities.Movie
 import com.example.kinopoisk.domain.entities.StaffType
 import com.example.kinopoisk.extentions.launchAndCollectIn
 import com.example.kinopoisk.presentation.detail.adapter.StaffAdapter
+import com.example.kinopoisk.presentation.homepage.HorizontalMovieListAdapter
 import com.example.kinopoisk.utils.formatAgeLimit
 import com.example.kinopoisk.utils.formatMinutesToHoursAndMinutes
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,21 +35,32 @@ class MovieDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel.loadMovie(args.movieId)
         viewModel.loadActors(args.movieId)
+        viewModel.loadSimilarMovies(args.movieId)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailMovieBinding.inflate(layoutInflater, container, false)
 
-        binding.actorsGrid.actorsRecycler.apply {
-            layoutManager = GridLayoutManager(context, 4, RecyclerView.HORIZONTAL, false)
-            adapter = StaffAdapter({ id -> Unit })
-        }
-        binding.staffGrid.actorsRecycler.apply {
-            layoutManager = GridLayoutManager(context, 2, RecyclerView.HORIZONTAL,false)
-            adapter = StaffAdapter({id -> Unit})
+        with(binding) {
+            actorsGrid.actorsRecycler.apply {
+                layoutManager = GridLayoutManager(context, 4, RecyclerView.HORIZONTAL, false)
+                adapter = StaffAdapter({ id -> Unit })
+            }
+            staffGrid.actorsRecycler.apply {
+                layoutManager = GridLayoutManager(context, 2, RecyclerView.HORIZONTAL,false)
+                adapter = StaffAdapter({id -> Unit})
+            }
+            similarMovieSection.sectionRecycler.apply {
+                layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
+                adapter = HorizontalMovieListAdapter(
+                    onMovieClick = {},
+                    onShowAllClick = {}
+                )
+            }
         }
         viewModel.uiState.launchAndCollectIn(lifecycleScope) { state ->
             when (state) {
@@ -65,6 +79,13 @@ class MovieDetailFragment : Fragment() {
             (binding.staffGrid.actorsRecycler.adapter as StaffAdapter).submitList(staff)
             binding.staffGrid.numOfActors.text = staff.size.toString()
             Log.d("TAGRTRT", "list submited $actors")
+        }
+        viewModel.similarMovies.launchAndCollectIn(lifecycleScope) { movies ->
+            if (movies.isNotEmpty()) {
+                (binding.similarMovieSection.sectionRecycler.adapter as HorizontalMovieListAdapter)
+                    .submitList(movies)
+                binding.similarMovieSection.btnSeeAll.text = movies.size.toString()
+            }
         }
         return binding.root
     }
@@ -85,8 +106,8 @@ class MovieDetailFragment : Fragment() {
             rating.text = movie.rating
             filmName.text = movie.name
             releaseDate.text = movie.year.toString()
-            genre.text = movie.genres.first().genre
-            country.text = movie.countries.first().country
+            genre.text = movie.genres?.first()?.genre
+            country.text = movie.countries?.first()?.country
             filmLength.text = movie.filmLength.toString()
             movie.filmLength
                 .let {
@@ -102,12 +123,13 @@ class MovieDetailFragment : Fragment() {
         with(binding) {
             description.text = movie.description
             shortDescription.text = movie.shortDescription
+
+            Glide.with(cover)
+                .load(movie.coverUrl)
+                .into(cover)
+            Glide.with(coverInfo.logo)
+                .load(movie.logoUrl)
+                .into(coverInfo.logo)
         }
-        Glide.with(binding.cover)
-            .load(movie.coverUrl)
-            .into(binding.cover)
-        Glide.with(binding.coverInfo.logo)
-            .load(movie.logoUrl)
-            .into(binding.coverInfo.logo)
     }
 }

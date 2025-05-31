@@ -64,17 +64,25 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
-                        tools:text="Хакер Нео узнает, что его мир — виртуальный. Выдающийся экшен, доказавший, что зрелищное кино может быть умным" />
+                        tools:text="Хакер Нео узнает, что его мир — виртуальный. Выдающийся экшен, доказавший, что зрелищное кино может быть умным"
+                        android:layout_marginBottom="24dp"
+                        />
+
+                    <include
+                        android:id="@+id/actors_grid"
+                        app:title='@{"В фильме снимались"}'
+                        layout="@layout/component_movie_staff_actors_horizontal_grid"/>
+                    <include
+                        android:id="@+id/staff_grid"
+                        app:title='@{"Над фильмом работали"}'
+                        layout="@layout/component_movie_staff_actors_horizontal_grid"/>
+                    <include
+                        android:id="@+id/similar_movie_section"
+                        app:title='@{"Похожие фильмы"}'
+                        layout="@layout/item_section"
+                        />
                 </LinearLayout>
 
-                <include
-                    android:id="@+id/actors_grid"
-                    app:title='@{"В фильме снимались"}'
-                    layout="@layout/component_movie_staff_actors_horizontal_grid"/>
-                <include
-                    android:id="@+id/staff_grid"
-                    app:title='@{"Над фильмом работали"}'
-                    layout="@layout/component_movie_staff_actors_horizontal_grid"/>
             </LinearLayout>
         </ScrollView>
 

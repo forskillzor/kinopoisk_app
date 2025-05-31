@@ -18,6 +18,8 @@ import com.example.kinopoisk.domain.usecases.GetSeriesPagedUseCase
 import com.example.kinopoisk.domain.usecases.GetSeriesPagedUseCaseImpl
 import com.example.kinopoisk.domain.usecases.GetSeriesUseCase
 import com.example.kinopoisk.domain.usecases.GetSeriesUseCaseImpl
+import com.example.kinopoisk.domain.usecases.GetSimilarMoviesUseCase
+import com.example.kinopoisk.domain.usecases.GetSimilarMoviesUseCaseImpl
 import com.example.kinopoisk.domain.usecases.GetStaffByMovieIdUseCase
 import com.example.kinopoisk.domain.usecases.GetStaffByMovieIdUseCaseImpl
 import com.example.kinopoisk.domain.usecases.GetTopListPagedUseCase
@@ -113,4 +115,10 @@ abstract class DomainModule {
     abstract fun bindGetStaffByMovieIdUseCase(
         impl: GetStaffByMovieIdUseCaseImpl
     ): GetStaffByMovieIdUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindGetSimilarMoviesUseCase(
+        impl: GetSimilarMoviesUseCaseImpl
+    ): GetSimilarMoviesUseCase
 }

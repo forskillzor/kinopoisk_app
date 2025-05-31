@@ -16,10 +16,9 @@ fun MovieDto.toDomain(): Movie {
         year = year ?: 0,
         filmLength = filmLength ?: 0,
         description = description ?: "",
-        countries = countries
-            .map { country -> Country(country = country.country, id = country.id) },
+        countries = countries?.map { country -> Country(country = country.country, id = country.id) },
         genres = genres
-            .map { genre -> Genre(genre = genre.genre, id = genre.id) },
+            ?.map { genre -> Genre(genre = genre.genre, id = genre.id) },
         rating = rating ?: ratingKinopoisk ?: ratingImdb,
         posterUrl = posterUrl,
         posterUrlPreview = posterUrlPreview,

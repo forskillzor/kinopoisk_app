@@ -82,7 +82,7 @@ class HorizontalMovieListAdapter(
                 binding.ratingBadge.visibility = View.VISIBLE
                 binding.ratingBadge.text = movie.rating
             }
-            binding.genre.text = movie.genres.getOrNull(0)?.genre.orEmpty()
+            binding.genre.text = movie.genres?.getOrNull(0)?.genre.orEmpty()
         }
     }
 
