@@ -18,6 +18,7 @@ import com.example.kinopoisk.data.model.FiltersResponse
 import com.example.kinopoisk.data.model.MovieDto
 import com.example.kinopoisk.data.model.Top250Response
 import com.example.kinopoisk.domain.entities.Movie
+import com.example.kinopoisk.domain.entities.Staff
 import com.example.kinopoisk.domain.mappers.toDomain
 import com.example.kinopoisk.domain.repository.MovieRepository
 import com.example.kinopoisk.domain.repository.SettingsRepository
@@ -98,6 +99,13 @@ class MovieRepositoryImpl @Inject constructor(
         return flow {
             val movieDto = api.getFilmById(id)
             emit(movieDto.toDomain())
+        }.flowOn(Dispatchers.IO)
+    }
+
+    override fun getStaffByMovieId(id: Int): Flow<List<Staff>> {
+        return flow {
+            val staffList = api.getStaffByMovieId(id).map { item -> item.toDomain()}
+            emit(staffList)
         }.flowOn(Dispatchers.IO)
     }
 }

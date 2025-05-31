@@ -32,6 +32,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
     // todo change to java 8 VERSION_1_8
     compileOptions {

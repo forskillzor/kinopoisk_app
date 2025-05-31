@@ -14,5 +14,5 @@ enum class SectionType {
     POPULAR,
     DYNAMIC_GENRE_COUNTRY,
     TOP_250,
-    SERIES
+    SERIES,
 }

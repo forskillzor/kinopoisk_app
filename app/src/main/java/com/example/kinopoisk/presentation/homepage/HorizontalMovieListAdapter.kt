@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kinopoisk.databinding.ItemMovieBinding
-import com.example.kinopoisk.databinding.ItemShowAllBinding
+import com.example.kinopoisk.databinding.ItemSectionShowAllBinding
 import com.example.kinopoisk.domain.entities.Movie
 import com.example.kinopoisk.presentation.homepage.HorizontalMovieListAdapter.HorizontalListItem.MovieItem
 import com.example.kinopoisk.presentation.homepage.HorizontalMovieListAdapter.HorizontalListItem.ShowAll
@@ -46,7 +46,7 @@ class HorizontalMovieListAdapter(
                 MovieViewHolder(binding, onMovieClick)
             }
             1 -> {
-                val binding = ItemShowAllBinding.inflate(layoutInflater, parent, false)
+                val binding = ItemSectionShowAllBinding.inflate(layoutInflater, parent, false)
                 ShowAllViewHolder(binding, onShowAllClick)
             }
             else -> throw IllegalArgumentException("Invalid viewType")
@@ -87,7 +87,7 @@ class HorizontalMovieListAdapter(
     }
 
     inner class ShowAllViewHolder(
-        private val binding: ItemShowAllBinding,
+        private val binding: ItemSectionShowAllBinding,
         private val onClick: () -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind() {

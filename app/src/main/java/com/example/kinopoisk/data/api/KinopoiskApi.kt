@@ -4,6 +4,7 @@ import com.example.kinopoisk.BuildConfig
 import com.example.kinopoisk.data.model.CollectionsResponse
 import com.example.kinopoisk.data.model.FiltersResponse
 import com.example.kinopoisk.data.model.MovieDto
+import com.example.kinopoisk.data.model.StaffDto
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -54,6 +55,11 @@ interface KinopoiskApi {
     suspend fun getFilmById(
         @Path("id") id: Int
     ): MovieDto
+
+    @GET("/api/v1/staff")
+    suspend fun getStaffByMovieId(
+        @Query("filmId") id: Int
+    ): List<StaffDto>
 
 
     companion object {

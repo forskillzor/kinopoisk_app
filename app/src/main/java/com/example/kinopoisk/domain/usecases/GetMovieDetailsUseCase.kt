@@ -5,15 +5,15 @@ import com.example.kinopoisk.domain.repository.MovieRepository
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 
-interface GetMovieDetails {
+interface GetMovieDetailsUseCase {
 
     operator fun invoke(id: Int): Flow<Movie>
 
 }
 
-class GetMovieDetailsByMovieIdImpl @Inject constructor(
+class GetMovieDetailsByMovieIdImplUseCase @Inject constructor(
     private val repository: MovieRepository
-): GetMovieDetails {
+): GetMovieDetailsUseCase {
     override fun invoke(id: Int): Flow<Movie> {
         return  repository.getMovieByMovieId(id)
     }

@@ -4,8 +4,8 @@ import com.example.kinopoisk.domain.usecases.GetDynamicGenreCountryPagedUseCase
 import com.example.kinopoisk.domain.usecases.GetDynamicGenreCountryPagedUseCaseImpl
 import com.example.kinopoisk.domain.usecases.GetDynamicGenreCountryUseCase
 import com.example.kinopoisk.domain.usecases.GetDynamicGenreCountryUseCaseImpl
-import com.example.kinopoisk.domain.usecases.GetMovieDetails
-import com.example.kinopoisk.domain.usecases.GetMovieDetailsByMovieIdImpl
+import com.example.kinopoisk.domain.usecases.GetMovieDetailsUseCase
+import com.example.kinopoisk.domain.usecases.GetMovieDetailsByMovieIdImplUseCase
 import com.example.kinopoisk.domain.usecases.GetPopularPagedUseCase
 import com.example.kinopoisk.domain.usecases.GetPopularPagedUseCaseImpl
 import com.example.kinopoisk.domain.usecases.GetPopularUseCase
@@ -18,6 +18,8 @@ import com.example.kinopoisk.domain.usecases.GetSeriesPagedUseCase
 import com.example.kinopoisk.domain.usecases.GetSeriesPagedUseCaseImpl
 import com.example.kinopoisk.domain.usecases.GetSeriesUseCase
 import com.example.kinopoisk.domain.usecases.GetSeriesUseCaseImpl
+import com.example.kinopoisk.domain.usecases.GetStaffByMovieIdUseCase
+import com.example.kinopoisk.domain.usecases.GetStaffByMovieIdUseCaseImpl
 import com.example.kinopoisk.domain.usecases.GetTopListPagedUseCase
 import com.example.kinopoisk.domain.usecases.GetTopListPagedUseCaseImpl
 import com.example.kinopoisk.domain.usecases.GetTopListUseCase
@@ -103,6 +105,12 @@ abstract class DomainModule {
     @Binds
     @Singleton
     abstract fun bindGetMovieByMovieIdUseCase(
-        impl: GetMovieDetailsByMovieIdImpl
-    ): GetMovieDetails
+        impl: GetMovieDetailsByMovieIdImplUseCase
+    ): GetMovieDetailsUseCase
+
+    @Binds
+    @Singleton
+    abstract fun bindGetStaffByMovieIdUseCase(
+        impl: GetStaffByMovieIdUseCaseImpl
+    ): GetStaffByMovieIdUseCase
 }
