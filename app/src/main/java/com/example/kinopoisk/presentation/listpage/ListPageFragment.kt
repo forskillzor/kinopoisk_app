@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kinopoisk.presentation.listpage.ListPageViewModel
 import com.example.kinopoisk.databinding.FragmentListPageBinding
+import com.example.kinopoisk.domain.entities.SectionType
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -34,6 +35,14 @@ class ListPageFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentListPageBinding.inflate(inflater, container, false)
+
+        binding.toolbar.title = when(args.collectionType) {
+            SectionType.PREMIERES -> "Примьеры"
+            SectionType.POPULAR -> "Популярное"
+            SectionType.DYNAMIC_GENRE_COUNTRY -> "Подборка"
+            SectionType.TOP_250 -> "Топ-250"
+            SectionType.SERIES -> "Сериалы"
+        }
 
         val recyclerView = binding.recyclerView
         recyclerView.layoutManager = GridLayoutManager(context, 2)

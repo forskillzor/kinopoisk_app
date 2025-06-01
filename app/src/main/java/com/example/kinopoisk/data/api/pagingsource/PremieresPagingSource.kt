@@ -12,13 +12,20 @@ class PremieresPagingSource(
 ): PagingSource<Int, Movie>() {
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
-        val page = params.key?: 1
-        val response = api.premieres(page)
-        return LoadResult.Page(
-            data = response.items.map(MovieDto::toDomain),
-            prevKey = if(page == 1) null else page - 1,
-            nextKey = page + 1
-        )
+        return try {
+            val page = params.key?: 1
+            val response = api.premieres(page)
+
+            val nextKey = if (page >= response.totalPages) null else page + 1
+
+            LoadResult.Page(
+                data = response.items.map(MovieDto::toDomain),
+                prevKey = if(page == 1) null else page - 1,
+                nextKey = nextKey
+            )
+        } catch (e: Exception) {
+            LoadResult.Error(e)
+        }
     }
     override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
         return state.anchorPosition?.let { anchor ->

@@ -1,4 +1,4 @@
-package com.example.kinopoisk.presentation.homepage
+package com.example.kinopoisk.presentation.home
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import com.bumptech.glide.Glide
 import com.example.kinopoisk.databinding.ItemMovieBinding
 import com.example.kinopoisk.databinding.ItemSectionShowAllBinding
 import com.example.kinopoisk.domain.entities.Movie
-import com.example.kinopoisk.presentation.homepage.HorizontalMovieListAdapter.HorizontalListItem.MovieItem
-import com.example.kinopoisk.presentation.homepage.HorizontalMovieListAdapter.HorizontalListItem.ShowAll
+import com.example.kinopoisk.presentation.home.HorizontalMovieListAdapter.HorizontalListItem.MovieItem
+import com.example.kinopoisk.presentation.home.HorizontalMovieListAdapter.HorizontalListItem.ShowAll
 class HorizontalMovieListAdapter(
     private val onShowAllClick: () -> Unit,
     private val onMovieClick:  (id: Int) -> Unit

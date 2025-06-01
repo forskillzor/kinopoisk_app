@@ -1,4 +1,4 @@
-package com.example.kinopoisk.presentation.homepage
+package com.example.kinopoisk.presentation.home
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

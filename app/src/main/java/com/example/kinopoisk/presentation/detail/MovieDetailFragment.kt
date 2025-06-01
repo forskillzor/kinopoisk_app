@@ -20,7 +20,7 @@ import com.example.kinopoisk.domain.entities.Movie
 import com.example.kinopoisk.domain.entities.StaffType
 import com.example.kinopoisk.extentions.launchAndCollectIn
 import com.example.kinopoisk.presentation.detail.adapter.StaffAdapter
-import com.example.kinopoisk.presentation.homepage.HorizontalMovieListAdapter
+import com.example.kinopoisk.presentation.home.HorizontalMovieListAdapter
 import com.example.kinopoisk.utils.formatAgeLimit
 import com.example.kinopoisk.utils.formatMinutesToHoursAndMinutes
 import dagger.hilt.android.AndroidEntryPoint

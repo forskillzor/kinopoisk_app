@@ -1,4 +1,4 @@
-package com.example.kinopoisk.presentation.homepage
+package com.example.kinopoisk.presentation.home
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

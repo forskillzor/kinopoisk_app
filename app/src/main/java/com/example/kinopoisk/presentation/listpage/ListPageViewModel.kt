@@ -1,5 +1,6 @@
 package com.example.kinopoisk.presentation.listpage
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
@@ -25,18 +26,20 @@ class ListPageViewModel @Inject constructor(
     val getSeriesPagedUseCase: GetSeriesPagedUseCase,
     val getDynamicGenreCountryPagedUseCase: GetDynamicGenreCountryPagedUseCase
 
-): ViewModel() {
+) : ViewModel() {
     private val _pagingData = MutableStateFlow<PagingData<Movie>>(PagingData.empty())
     val pagingData = _pagingData.asStateFlow()
 
     fun loadMovies(sectionType: SectionType) {
         viewModelScope.launch {
-            when(sectionType) {
+            when (sectionType) {
                 SectionType.PREMIERES -> getPremieresPagedUseCase().cachedIn(viewModelScope)
                 SectionType.POPULAR -> getPopularPagedUseCase().cachedIn(viewModelScope)
                 SectionType.TOP_250 -> getTopListPagedUseCase().cachedIn(viewModelScope)
                 SectionType.SERIES -> getSeriesPagedUseCase().cachedIn(viewModelScope)
-                SectionType.DYNAMIC_GENRE_COUNTRY -> getDynamicGenreCountryPagedUseCase().cachedIn(viewModelScope)
+                SectionType.DYNAMIC_GENRE_COUNTRY -> getDynamicGenreCountryPagedUseCase().cachedIn(
+                    viewModelScope
+                )
             }.collect { pagingData ->
                 _pagingData.value = pagingData
             }

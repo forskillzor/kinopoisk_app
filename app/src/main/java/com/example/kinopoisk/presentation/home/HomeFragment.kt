@@ -1,4 +1,4 @@
-package com.example.kinopoisk.presentation.homepage
+package com.example.kinopoisk.presentation.home
 
 import android.os.Bundle
 import android.util.Log
@@ -11,15 +11,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.kinopoisk.domain.entities.MovieSection
-import com.example.kinopoisk.databinding.FragmentHomepageBinding
+import com.example.kinopoisk.databinding.FragmentHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class HomepageFragment : Fragment() {
+class HomeFragment : Fragment() {
     private val viewModel: HomeViewModel by viewModels()
     private lateinit var sectionAdapter: SectionAdapter
-    private lateinit var binding: FragmentHomepageBinding
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +28,7 @@ class HomepageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentHomepageBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
         sectionAdapter = SectionAdapter()
         binding.sectionRecycler.apply {
