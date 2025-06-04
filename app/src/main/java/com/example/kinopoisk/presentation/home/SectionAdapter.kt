@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kinopoisk.R
@@ -31,16 +33,37 @@ class SectionAdapter(
             title.text = section.title
             val adapter = HorizontalMovieListAdapter(
                 {
-                    HomepageFragmentDirections.actionHomepageFragmentToListPageFragment(section.type)
+                    HomeFragmentDirections.actionHomepageFragmentToListPageFragment(section.type)
                         .let {
                             itemView.findNavController().navigate(it)
                         }
                 },
                 { movieId ->
-                    HomepageFragmentDirections.actionHomepageFragmentToMovieDetailFragment(movieId)
-                        .let {
-                            itemView.findNavController().navigate(it)
+                    val transitionName = "poster_$movieId"
+                    val position = section.movies.indexOfFirst { it.id == movieId }
+                    if (position != -1) {
+                        val posterView = recyclerView.layoutManager?.findViewByPosition(position)
+                            ?.findViewById<ImageView>(R.id.poster)
+
+                        val extras = if (posterView != null) {
+                            FragmentNavigator.Extras.Builder()
+                                .addSharedElement(posterView, transitionName)
+                                .build()
+                        } else {
+                            null
                         }
+
+                        HomeFragmentDirections.actionHomepageFragmentToMovieDetailFragment(
+                            movieId,
+                            transitionName
+                        ).let {
+                            if (extras != null) {
+                                itemView.findNavController().navigate(it, extras)
+                            } else {
+                                itemView.findNavController().navigate(it)
+                            }
+                        }
+                    }
                 }
             ).apply {
                 submitList(section.movies.take(20))
@@ -51,7 +74,7 @@ class SectionAdapter(
 
             btnSeeAll.setOnClickListener {
                 val section = sections[position]
-                HomepageFragmentDirections.actionHomepageFragmentToListPageFragment(section.type)
+                HomeFragmentDirections.actionHomepageFragmentToListPageFragment(section.type)
                     .let {
                         itemView.findNavController().navigate(it)
                     }

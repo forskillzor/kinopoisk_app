@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.kinopoisk.R
 import com.example.kinopoisk.presentation.listpage.ListPageViewModel
 import com.example.kinopoisk.databinding.FragmentListPageBinding
 import com.example.kinopoisk.domain.entities.SectionType
@@ -60,8 +63,11 @@ class ListPageFragment : Fragment() {
             }
         })
         adapter = MovieGridAdapter { id ->
-            ListPageFragmentDirections.actionListPageFragmentToMovieDetailFragment(id).let {
-                binding.root.findNavController().navigate(it)
+            val extras = FragmentNavigator.Extras.Builder()
+                .addSharedElement(binding.root.findViewById<ImageView>(R.id.poster), "poster_$id")
+                .build()
+            ListPageFragmentDirections.actionListPageFragmentToMovieDetailFragment(id, "poster_$id").let {
+                binding.root.findNavController().navigate(it, extras)
             }
         }
         recyclerView.adapter = adapter

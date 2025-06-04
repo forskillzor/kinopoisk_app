@@ -1,6 +1,7 @@
 package com.example.kinopoisk.presentation.detail
 
 import android.annotation.SuppressLint
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -14,7 +15,12 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.transition.TransitionInflater
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.example.kinopoisk.R
 import com.example.kinopoisk.databinding.FragmentDetailMovieBinding
 import com.example.kinopoisk.domain.entities.Movie
 import com.example.kinopoisk.domain.entities.StaffType
@@ -26,13 +32,14 @@ import com.example.kinopoisk.utils.formatMinutesToHoursAndMinutes
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class MovieDetailFragment : Fragment() {
+class MovieDetailsFragment : Fragment() {
     private val viewModel: DetailMovieViewModel by viewModels()
     private lateinit var binding: FragmentDetailMovieBinding
-    private val args: MovieDetailFragmentArgs by navArgs()
+    private val args: MovieDetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        postponeEnterTransition()
         viewModel.loadMovie(args.movieId)
         viewModel.loadActors(args.movieId)
         viewModel.loadSimilarMovies(args.movieId)
@@ -44,6 +51,7 @@ class MovieDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentDetailMovieBinding.inflate(layoutInflater, container, false)
+        binding.cover.transitionName = args.transitionName
 
         with(binding) {
             actorsGrid.actorsRecycler.apply {
@@ -87,6 +95,7 @@ class MovieDetailFragment : Fragment() {
                 binding.similarMovieSection.btnSeeAll.text = movies.size.toString()
             }
         }
+        binding.cover.transitionName = args.transitionName
         return binding.root
     }
 
@@ -126,6 +135,29 @@ class MovieDetailFragment : Fragment() {
 
             Glide.with(cover)
                 .load(movie.coverUrl)
+                .dontAnimate()
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: com.bumptech.glide.request.target.Target<Drawable?>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        startPostponedEnterTransition()
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        model: Any,
+                        target: com.bumptech.glide.request.target.Target<Drawable?>?,
+                        dataSource: DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        startPostponedEnterTransition()
+                        return false
+                    }
+                })
                 .into(cover)
             Glide.with(coverInfo.logo)
                 .load(movie.logoUrl)

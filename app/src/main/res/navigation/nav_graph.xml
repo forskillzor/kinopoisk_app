@@ -9,7 +9,7 @@
         android:id="@+id/homepageFragment"
         android:name="com.example.kinopoisk.presentation.home.HomeFragment"
         android:label="fragment_homepage"
-        tools:layout="@layout/fragment_homepage">
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homepageFragment_to_listPageFragment"
             app:destination="@id/listPageFragment" />
@@ -23,20 +23,22 @@
         android:label="fragment_list_page"
         tools:layout="@layout/fragment_list_page">
         <argument
-            android:name= "collectionType"
-            app:argType="com.example.kinopoisk.domain.entities.SectionType"
-            />
+            android:name="collectionType"
+            app:argType="com.example.kinopoisk.domain.entities.SectionType" />
         <action
             android:id="@+id/action_listPageFragment_to_movieDetailFragment"
             app:destination="@id/movieDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailFragment"
-        android:name="com.example.kinopoisk.presentation.detail.MovieDetailFragment"
+        android:name="com.example.kinopoisk.presentation.detail.MovieDetailsFragment"
         android:label="fragment_detail_movie"
         tools:layout="@layout/fragment_detail_movie">
         <argument
-            android:name= "movieId"
-            app:argType="integer"/>
+            android:name="movieId"
+            app:argType="integer" />
+        <argument
+            android:name="transition_name"
+            app:argType="string" />
     </fragment>
 </navigation>

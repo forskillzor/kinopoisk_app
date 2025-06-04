@@ -8,6 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.kinopoisk.data.api.KinopoiskApi
 import com.example.kinopoisk.data.api.pagingsource.DynamicPagingSource
+import com.example.kinopoisk.data.api.pagingsource.MovieListPagingSource
 import com.example.kinopoisk.data.api.pagingsource.PopularPagingSource
 import com.example.kinopoisk.data.api.pagingsource.PremieresPagingSource
 import com.example.kinopoisk.data.api.pagingsource.SeriesPagingSource
@@ -64,22 +65,30 @@ class MovieRepositoryImpl @Inject constructor(
 
     override fun getTopPaged(): Flow<PagingData<Movie>> =
         Pager(config = PagingConfig(pageSize = 20)) {
-            TopListPagingSource(api)
+            MovieListPagingSource(
+                apiCall = {page -> api.top(page)}
+            )
         }.flow
 
     override fun getPremieresPaged(): Flow<PagingData<Movie>> =
         Pager(config = PagingConfig(pageSize = 20)) {
-            PremieresPagingSource(api)
+            MovieListPagingSource(
+                apiCall = {page -> api.premieres(page)}
+            )
         }.flow
 
     override fun getPopularPaged(): Flow<PagingData<Movie>> =
         Pager(config = PagingConfig(pageSize = 20)) {
-            PopularPagingSource(api)
+            MovieListPagingSource(
+                apiCall = {page -> api.popular(page)}
+            )
         }.flow
 
     override fun getSeriesPaged(): Flow<PagingData<Movie>> =
         Pager(config = PagingConfig(pageSize = 20)) {
-            SeriesPagingSource(api)
+            MovieListPagingSource(
+                apiCall = {page -> api.series(page)}
+            )
         }.flow
 
     @OptIn(ExperimentalCoroutinesApi::class)

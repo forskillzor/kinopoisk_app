@@ -83,6 +83,7 @@ class HorizontalMovieListAdapter(
                 binding.ratingBadge.text = movie.rating
             }
             binding.genre.text = movie.genres?.getOrNull(0)?.genre.orEmpty()
+            binding.poster.transitionName = "poster_${movie.id}"
         }
     }
 

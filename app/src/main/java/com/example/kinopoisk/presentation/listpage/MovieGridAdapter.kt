@@ -11,10 +11,10 @@ import com.example.kinopoisk.databinding.ItemMovieBinding
 import com.example.kinopoisk.domain.entities.Movie
 
 class MovieGridAdapter(
-    private val onItemClick: (id: Int)-> Unit
-): PagingDataAdapter<Movie, MovieGridAdapter.MovieViewHolder>(COMPARATOR) {
+    private val onItemClick: (id: Int) -> Unit
+) : PagingDataAdapter<Movie, MovieGridAdapter.MovieViewHolder>(COMPARATOR) {
 
-    companion object{
+    companion object {
         val COMPARATOR = object : DiffUtil.ItemCallback<Movie>() {
             override fun areItemsTheSame(
                 oldItem: Movie,
@@ -32,6 +32,7 @@ class MovieGridAdapter(
 
         }
     }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -44,13 +45,14 @@ class MovieGridAdapter(
         holder: MovieViewHolder,
         position: Int
     ) {
-        val item = getItem(position)
-        if (item != null) {
-            holder.bind(item)
-        }
+        val item = getItem(position) ?: return
+        holder.bind(item)
     }
-    inner class MovieViewHolder(val binding: ItemMovieBinding): RecyclerView.ViewHolder(binding.root) {
+
+    inner class MovieViewHolder(val binding: ItemMovieBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
+            binding.poster.transitionName = "poster_${movie.id}"
             binding.root.setOnClickListener {
                 onItemClick(movie.id)
             }
