@@ -36,9 +36,9 @@ class ListPageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val binding = FragmentListPageBinding.inflate(inflater, container, false)
 
+        // todo move this duplicate code to single source
         binding.toolbar.title = when(args.collectionType) {
             SectionType.PREMIERES -> "Примьеры"
             SectionType.POPULAR -> "Популярное"
@@ -63,11 +63,26 @@ class ListPageFragment : Fragment() {
             }
         })
         adapter = MovieGridAdapter { id ->
-            val extras = FragmentNavigator.Extras.Builder()
-                .addSharedElement(binding.root.findViewById<ImageView>(R.id.poster), "poster_$id")
-                .build()
-            ListPageFragmentDirections.actionListPageFragmentToMovieDetailFragment(id, "poster_$id").let {
-                binding.root.findNavController().navigate(it, extras)
+            val position = adapter.snapshot().indexOfFirst { it?.id == id }
+            if(position != -1) {
+                val posterView = binding.recyclerView.layoutManager?.findViewByPosition(position)
+                    ?.findViewById<ImageView>(R.id.poster)
+
+                val extras = if (posterView != null ){
+                    FragmentNavigator.Extras.Builder()
+                        .addSharedElement(posterView, "poster_$id")
+                        .build()
+                } else  {
+                    null
+                }
+                ListPageFragmentDirections.actionListPageFragmentToMovieDetailFragment(id, "poster_$id")
+                    .let {
+                        if (extras != null) {
+                            binding.root.findNavController().navigate(it, extras)
+                        } else {
+                            binding.root.findNavController().navigate(it)
+                        }
+                }
             }
         }
         recyclerView.adapter = adapter

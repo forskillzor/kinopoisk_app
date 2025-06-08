@@ -57,10 +57,12 @@ class MovieDetailsFragment : Fragment() {
             actorsGrid.actorsRecycler.apply {
                 layoutManager = GridLayoutManager(context, 4, RecyclerView.HORIZONTAL, false)
                 adapter = StaffAdapter({ id -> Unit })
+                setHasFixedSize(true)
             }
             staffGrid.actorsRecycler.apply {
                 layoutManager = GridLayoutManager(context, 2, RecyclerView.HORIZONTAL,false)
                 adapter = StaffAdapter({id -> Unit})
+                setHasFixedSize(true)
             }
             similarMovieSection.sectionRecycler.apply {
                 layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
@@ -68,6 +70,7 @@ class MovieDetailsFragment : Fragment() {
                     onMovieClick = {},
                     onShowAllClick = {}
                 )
+                setHasFixedSize(true)
             }
         }
         viewModel.uiState.launchAndCollectIn(lifecycleScope) { state ->
